@@ -6,7 +6,7 @@ class Person {
     }
     signup(upcomingEvent) {
         this.upcomingEvent = upcomingEvent;
-        upcomingEvent.attendees.push(this);
+        upcomingEvent.attendees.push(this.name);
     }
     connect(person) {
         console.log(`Other ${this.upcomingEvent.attendees.length - 1} people are interested in this event, too! Connect with them!`);
@@ -57,6 +57,8 @@ kubra.comment('Yay! am so excited to see this', 5);
 console.log(`Kubra, you have ${kubra.contacts.length} contacts!`);
 
 upcomingEvent.news();
+
+
 
 
 
