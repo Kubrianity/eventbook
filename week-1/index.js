@@ -11,6 +11,7 @@ class Person {
     connect(person) {
         console.log(`Other ${this.upcomingEvent.attendees.length - 1} people are interested in this event, too! Connect with them!`);
         this.contacts.push({contactName : person.name, contactInfo : person.email});
+        person.contacts.push({contactName : this.name, contactInfo : this.email})
     }
     comment(text , ratings) {
         let comment = new Comment(text, ratings);
@@ -51,12 +52,12 @@ mark.signup(upcomingEvent);
 
 kubra.connect(kevser);
 kubra.connect(mark);
+kevser.connect(mark);
 
-kubra.comment('Yay! am so excited to see this', 5);
-
-console.log(`Kubra, you have ${kubra.contacts.length} contacts!`);
+kubra.comment('Yay! I am so excited to see this', 5);
 
 upcomingEvent.news();
+
 
 
 
