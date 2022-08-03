@@ -13,11 +13,11 @@ class Person {
         this.contacts.push({contactName : person.name, contactInfo : person.email});
         person.contacts.push({contactName : this.name, contactInfo : this.email})
     }
-    comment(text , ratings) {
-        let comment = new Comment(text, ratings);
-        comment.name = this.name;
-        this.comment = comment;
-        console.log(`You commented : '${comment.text}'. You gave ${comment.rating} stars for this event!`);
+    makeComment(comment , ratings) {
+        let review = new Review(comment, ratings);
+        review.name = this.name;
+        this.reviews = review;
+        console.log(`You commented : '${review.comment}'. You gave ${review.rating} stars for this event!`);
     }
 }
 
@@ -33,9 +33,9 @@ class newEvent {
     }
 }
 
-class Comment {
-    constructor(text, rating) {
-        this.text = text;
+class Review {
+    constructor(comment, rating) {
+        this.comment = comment;
         this.rating = rating;
     }
 }
@@ -54,9 +54,10 @@ kubra.connect(kevser);
 kubra.connect(mark);
 kevser.connect(mark);
 
-kubra.comment('Yay! I am so excited to see this', 5);
+kubra.makeComment('Yay! I am so excited to see this', 5);
 
-upcomingEvent.news();
+console.log(kubra.reviews)
+
 
 
 
