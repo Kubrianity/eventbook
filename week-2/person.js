@@ -7,11 +7,10 @@ module.exports = class Person {
         this.contacts = [];
     }
     signup(upcomingEvent) {
-        this.upcomingEvent = upcomingEvent;
-        upcomingEvent.attendees.push(this.name);
+        this.upcomingEvent = upcomingEvent.name;
+        upcomingEvent.attendees.push(this);
     }
     connect(person) {
-        console.log(`Other ${this.upcomingEvent.attendees.length - 1} people are interested in this event, too! Connect with them!`);
         this.contacts.push({contactName : person.name, contactInfo : person.email});
         person.contacts.push({contactName : this.name, contactInfo : this.email})
     }
