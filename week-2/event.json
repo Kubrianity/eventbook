@@ -1,0 +1,57 @@
+{
+    "name": "Rock Festival",
+    "place": "Ankara",
+    "date": "01-01-2023  04-01-2023",
+    "attendees": [
+        {
+            "name": "Kubra",
+            "email": "example@email.com",
+            "contacts": [
+                {
+                    "contactName": "Kevser",
+                    "contactInfo": "example2@email.com"
+                },
+                {
+                    "contactName": "Mark",
+                    "contactInfo": "example3@email.com"
+                }
+            ],
+            "upcomingEvent": "Rock Festival",
+            "reviews": {
+                "comment": "Yay! I am so excited to see this",
+                "rating": 5,
+                "name": "Kubra"
+            }
+        },
+        {
+            "name": "Kevser",
+            "email": "example2@email.com",
+            "contacts": [
+                {
+                    "contactName": "Kubra",
+                    "contactInfo": "example@email.com"
+                },
+                {
+                    "contactName": "Mark",
+                    "contactInfo": "example3@email.com"
+                }
+            ],
+            "upcomingEvent": "Rock Festival"
+        },
+        {
+            "name": "Mark",
+            "email": "example3@email.com",
+            "contacts": [
+                {
+                    "contactName": "Kubra",
+                    "contactInfo": "example@email.com"
+                },
+                {
+                    "contactName": "Kevser",
+                    "contactInfo": "example2@email.com"
+                }
+            ],
+            "upcomingEvent": "Rock Festival"
+        }
+    ]
+}
