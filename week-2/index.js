@@ -1,5 +1,6 @@
 const Person = require('./person');
 const NewEvent = require('./event');
+const Databese = require('./databese')
 
 const kubra = new Person('Kubra', 'example@email.com');
 const kevser = new Person('Kevser', 'example2@email.com');
@@ -17,14 +18,6 @@ kevser.connect(mark);
 
 kubra.makeComment('Yay! I am so excited to see this', 5);
 
-
-
-
-
-
-
-
-
-
+Databese.save(upcomingEvent)
 
 
