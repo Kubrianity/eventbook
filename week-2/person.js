@@ -20,4 +20,7 @@ module.exports = class Person {
         this.reviews = review;
         console.log(`You commented : '${review.comment}'. You gave ${review.rating} stars for this event!`);
     }
+    static create({name, email}) {
+        return new Person(name, email);
+    }
 }
