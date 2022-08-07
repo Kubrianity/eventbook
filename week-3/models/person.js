@@ -1,14 +1,15 @@
 const Review = require('./review');
 
 module.exports = class Person {
-    constructor(name, email, id, contacts = []) {
+    constructor(name, email, id, contacts = [], events = []) {
         this.name = name;
         this.email = email;
-        this.contacts = contacts;
         this.id = id;
+        this.contacts = contacts;
+        this.events = events;
     }
     signup(upcomingEvent) {
-        this.upcomingEvent = upcomingEvent.name;
+        this.events.push(upcomingEvent.name);
         upcomingEvent.attendees.push(this);
     }
     connect(person) {
@@ -22,7 +23,7 @@ module.exports = class Person {
         console.log(`You commented : '${review.comment}'. You gave ${review.rating} stars for this event!`);
         return review;
     }
-    static create({name, email, id, contacts}) {
-        return new Person(name, email, id, contacts);
+    static create({name, email, id, contacts, events}) {
+        return new Person(name, email, id, contacts, events);
     }
 }
