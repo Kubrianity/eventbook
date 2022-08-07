@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Kubra",
+        "email": "example@email.com",
+        "contacts": [
+            {
+                "contactName": "Kevser",
+                "contactInfo": "example2@email.com"
+            },
+            {
+                "contactName": "Mark",
+                "contactInfo": "example3@email.com"
+            }
+        ],
+        "id": 2
+    },
+    {
+        "name": "Kevser",
+        "email": "example2@email.com",
+        "contacts": [
+            {
+                "contactName": "Kubra",
+                "contactInfo": "example@email.com"
+            },
+            {
+                "contactName": "Mark",
+                "contactInfo": "example3@email.com"
+            }
+        ],
+        "id": 3
+    }
+]

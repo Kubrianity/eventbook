@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 //const Flatted = require('flatted/cjs');
 
 module.exports = class Service {
@@ -20,7 +20,7 @@ module.exports = class Service {
         }
 
         const items = JSON.parse(file).map(this.model.create)
-
+        
         resolve(items)
       })
     })
