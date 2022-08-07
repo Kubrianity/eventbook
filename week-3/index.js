@@ -9,11 +9,15 @@ async function main() {
   const kevser = new Person('Kevser', 'example2@email.com')
   const mark = new Person('Mark', 'example3@email.com');
   
-  const upcomingEvent = new EventModel('Rock Festival', 'Ankara', '01-01-2023  04-01-2023');
+  const rockfest = new EventModel('Rock Festival', 'Ankara', '01-01-2023  04-01-2023');
 
-  mark.signup(upcomingEvent);
-  kubra.signup(upcomingEvent);
-  kevser.signup(upcomingEvent);
+  const artexhibition = new EventModel('Modern Art Exhibiton', 'Istanbul', '01-09-2022')
+
+  mark.signup(rockfest);
+  kubra.signup(rockfest);
+  kevser.signup(rockfest);
+
+  kevser.signup(artexhibition);
     
   kubra.connect(kevser);
   kubra.connect(mark);
@@ -23,18 +27,24 @@ async function main() {
   await PersonService.add(kubra);
   await PersonService.add(kevser);
   
-  const people = await PersonService.findAll();
+  await EventService.add(rockfest);
+  await EventService.add(artexhibition);
 
-  console.log(people[0].name);
+  const events = await EventService.findAll();
 
-  await PersonService.del(1);
+  console.log(events);
 
-  const newPeople = await PersonService.findAll();
+  // const person = await PersonService.find(1);
+
+  // console.log(person);
+
+  // await PersonService.del(1);
+
+  // const newPeople = await PersonService.findAll();
   
-  console.log(newPeople[0].name);
-
+  // console.log(newPeople[0].name);
   }
   
-  main()
+main();
 
   
