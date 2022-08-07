@@ -3,7 +3,7 @@ const EventModel = require('../models/event');
 
 class EventService extends BaseService {
     constructor() {
-        super(EventModel, `${__dirname}/../event-service.json`);
+        super(EventModel, `${__dirname}/../event-databese.json`);
     }
 }
 
