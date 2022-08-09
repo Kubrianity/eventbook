@@ -2,6 +2,7 @@ const Person = require('./models/person')
 const EventModel = require('./models/event')
 const PersonService = require('./services/person-service')
 const EventService = require('./services/event-service')
+const ReviewService = require('./services/review-service')
 
 async function main() {
 
@@ -30,9 +31,15 @@ async function main() {
   await EventService.add(rockfest);
   await EventService.add(artexhibition);
 
-  const events = await EventService.findAll();
+  kevser.makeComment('I am so excited to join this event!', 5)
+  mark.makeComment('It will be awesome, i cant wait to see it!', 5)
 
-  console.log(events);
+  await ReviewService.add(kevser.reviews)
+  await ReviewService.add(mark.reviews)
+
+  const reviews = ReviewService.findAll();
+
+  console.log(reviews);
 
   // const person = await PersonService.find(1);
 
