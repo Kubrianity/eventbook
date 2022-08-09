@@ -1,0 +1,14 @@
+[
+    {
+        "comment": "I am so excited to join this event!",
+        "rating": 5,
+        "name": "Kevser",
+        "id": 1
+    },
+    {
+        "comment": "It will be awesome, i cant wait to see it!",
+        "rating": 5,
+        "name": "Mark",
+        "id": 2
+    }
+]

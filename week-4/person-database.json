@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Mark",
+        "email": "example3@email.com",
+        "id": 1,
+        "contacts": [
+            {
+                "contactName": "Kubra",
+                "contactInfo": "example@email.com"
+            },
+            {
+                "contactName": "Kevser",
+                "contactInfo": "example2@email.com"
+            }
+        ],
+        "events": [
+            "Rock Festival"
+        ]
+    },
+    {
+        "name": "Kubra",
+        "email": "example@email.com",
+        "id": 2,
+        "contacts": [
+            {
+                "contactName": "Kevser",
+                "contactInfo": "example2@email.com"
+            },
+            {
+                "contactName": "Mark",
+                "contactInfo": "example3@email.com"
+            }
+        ],
+        "events": [
+            "Rock Festival"
+        ]
+    },
+    {
+        "name": "Kevser",
+        "email": "example2@email.com",
+        "id": 3,
+        "contacts": [
+            {
+                "contactName": "Kubra",
+                "contactInfo": "example@email.com"
+            },
+            {
+                "contactName": "Mark",
+                "contactInfo": "example3@email.com"
+            }
+        ],
+        "events": [
+            "Rock Festival",
+            "Modern Art Exhibiton"
+        ]
+    }
+]

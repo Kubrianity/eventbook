@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Rock Festival",
+        "place": "Ankara",
+        "date": "01-01-2023  04-01-2023",
+        "attendees": [
+            {
+                "name": "Mark",
+                "email": "example3@email.com",
+                "id": 19,
+                "contacts": [
+                    {
+                        "contactName": "Kubra",
+                        "contactInfo": "example@email.com"
+                    },
+                    {
+                        "contactName": "Kevser",
+                        "contactInfo": "example2@email.com"
+                    }
+                ],
+                "events": [
+                    "Rock Festival"
+                ]
+            },
+            {
+                "name": "Kubra",
+                "email": "example@email.com",
+                "id": 20,
+                "contacts": [
+                    {
+                        "contactName": "Kevser",
+                        "contactInfo": "example2@email.com"
+                    },
+                    {
+                        "contactName": "Mark",
+                        "contactInfo": "example3@email.com"
+                    }
+                ],
+                "events": [
+                    "Rock Festival"
+                ]
+            },
+            {
+                "name": "Kevser",
+                "email": "example2@email.com",
+                "id": 21,
+                "contacts": [
+                    {
+                        "contactName": "Kubra",
+                        "contactInfo": "example@email.com"
+                    },
+                    {
+                        "contactName": "Mark",
+                        "contactInfo": "example3@email.com"
+                    }
+                ],
+                "events": [
+                    "Rock Festival",
+                    "Modern Art Exhibiton"
+                ]
+            }
+        ],
+        "id": 1
+    },
+    {
+        "name": "Modern Art Exhibiton",
+        "place": "Istanbul",
+        "date": "01-09-2022",
+        "attendees": [
+            {
+                "name": "Kevser",
+                "email": "example2@email.com",
+                "id": 21,
+                "contacts": [
+                    {
+                        "contactName": "Kubra",
+                        "contactInfo": "example@email.com"
+                    },
+                    {
+                        "contactName": "Mark",
+                        "contactInfo": "example3@email.com"
+                    }
+                ],
+                "events": [
+                    "Rock Festival",
+                    "Modern Art Exhibiton"
+                ]
+            }
+        ],
+        "id": 2
+    }
+]
