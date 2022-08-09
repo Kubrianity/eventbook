@@ -42,8 +42,8 @@ app.get('/events/:id', async (req, res) => {
 // Get a specific comment
 app.get('/comments/:id', async (req, res) => {
   const id = req.params.id
-  const comment = await ReviewService.find(id)
-  res.send(comment)
+  const commentDetail = await ReviewService.find(id)
+  res.send(commentDetail)
 })
 
 app.listen(3000, () => {
