@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    h1 The number of people are #{people.length}
+    each person in people 
+      h4 #{person.name} will attend #{person.events}
