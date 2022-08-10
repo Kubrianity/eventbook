@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const PersonService = require('./services/person-service')
 const EventService = require('./services/event-service')
 const ReviewService = require( './services/review-service' )
+const Person = require( './models/person' )
 
 const app = express()
 
@@ -63,6 +64,22 @@ app.post('/events', async (req, res) => {
 app.post('/comments', async (req, res) => {
   const newComment = await ReviewService.add(req.body)
   res.send(newComment)
+})
+
+// Delete a person
+app.delete('/person/:id', async (req, res) => {
+  await PersonService.del(req.params.id)
+  res.send('Deleted!')
+})
+// Delete an event
+app.delete('/events/:id', async (req, res) => {
+  await EventService.del(req.params.id)
+  res.send('Deleted!')
+})
+// Delete a comment
+app.delete('/comments/:id', async (req, res) => {
+  await ReviewService.del(req.params.id)
+  res.send('Deleted!')
 })
 
 app.listen(3000, () => {
