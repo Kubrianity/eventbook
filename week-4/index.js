@@ -1,10 +1,13 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const PersonService = require('./services/person-service')
 const EventService = require('./services/event-service')
 const ReviewService = require( './services/review-service' )
 
 const app = express()
+
+app.use(bodyParser.json())
 app.set('view engine', 'pug')
 
 app.get('/', (req,res) => {
@@ -44,6 +47,22 @@ app.get('/comments/:id', async (req, res) => {
   const id = req.params.id
   const commentDetail = await ReviewService.find(id)
   res.send(commentDetail)
+})
+
+// Create a new person
+app.post('/person', async (req, res) => {
+  const newPerson = await PersonService.add(req.body)
+  res.send(newPerson)
+})
+// Create a new event
+app.post('/events', async (req, res) => {
+  const newEvent = await EventService.add(req.body)
+  res.send(newEvent)
+})
+// Create a new comment
+app.post('/comments', async (req, res) => {
+  const newComment = await ReviewService.add(req.body)
+  res.send(newComment)
 })
 
 app.listen(3000, () => {
