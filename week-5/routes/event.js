@@ -10,7 +10,17 @@ router.get('/all', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const eventDetail = await EventService.find(req.params.id)
-  res.render('event-detail', { data: eventDetail })
+  res.render('event-detail', { eventDetail })
+})
+
+router.post('/', async (req, res) => {
+  const newEvent = await EventService.add(req.body)
+  res.send(newEvent)
+})
+
+router.delete('/:id', async (req, res) => {
+  await EventService.del(req.params.id)
+  res.send('Deleted!')
 })
 
 module.exports = router
