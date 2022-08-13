@@ -5,7 +5,7 @@ const EventService = require('../services/event-service')
 
 router.get('/all', async (req, res) => {
   const events = await EventService.findAll()
-  res.render('event', { events })
+  res.render('events', { events })
 })
 
 router.get('/:id', async (req, res) => {

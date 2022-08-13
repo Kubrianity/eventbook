@@ -5,7 +5,7 @@ const ReviewService = require('../services/review-service')
 
 router.get('/all', async (req, res) => {
   const reviews = await ReviewService.findAll()
-  res.render('comment', { reviews })
+  res.render('reviews', { reviews })
 })
 
 router.get('/:id', async (req, res) => {
