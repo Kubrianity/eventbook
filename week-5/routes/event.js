@@ -9,8 +9,8 @@ router.get('/all', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const eventDetail = await EventService.find(req.params.id)
-  res.render('event-detail', { eventDetail })
+  const event = await EventService.find(req.params.id)
+  res.render('event-detail', { event })
 })
 
 router.post('/', async (req, res) => {

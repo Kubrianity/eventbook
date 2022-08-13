@@ -4,18 +4,18 @@ const router = express.Router()
 const ReviewService = require('../services/review-service')
 
 router.get('/all', async (req, res) => {
-  const comments = await ReviewService.findAll()
-  res.render('comment', { comments })
+  const reviews = await ReviewService.findAll()
+  res.render('comment', { reviews })
 })
 
 router.get('/:id', async (req, res) => {
-  const commentDetail = await ReviewService.find(req.params.id)
-  res.send(commentDetail)
+  const review = await ReviewService.find(req.params.id)
+  res.send(review)
 })
 
 router.post('/', async (req, res) => {
-  const newComment = await ReviewService.add(req.body)
-  res.send(newComment)
+  const newReview = await ReviewService.add(req.body)
+  res.send(newReview)
 })
 
 router.delete('/:id', async (req, res) => {
