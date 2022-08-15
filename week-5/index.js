@@ -1,9 +1,11 @@
 const express = require('express')
+
+require('./database-connection')
 const bodyParser = require('body-parser')
 
 const eventRouter = require('./routes/event')
 const personRouter = require('./routes/person')
-const reviewRouter = require('./routes/review')
+const commentRouter = require('./routes/comment')
 
 const app = express()
 
@@ -12,7 +14,7 @@ app.set('view engine', 'pug')
 
 app.use('/events', eventRouter)
 app.use('/person', personRouter)
-app.use('/comments', reviewRouter)
+app.use('/comments', commentRouter)
 
 app.get('/', (req, res) => {
   res.render('index')
