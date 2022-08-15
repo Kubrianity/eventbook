@@ -39,6 +39,22 @@ const PersonSchema = new mongoose.Schema({
     }]
 })
 
+// Create an event
+PersonSchema.methods.create = async function(event) {
+    this.createdEvents.push(event)
+    event.organizers.push(this)
+    await this.save()
+    await event.save()
+}
+
+// Register for an event
+PersonSchema.methods.register = async function(event) {
+    this.upcomingEvents.push(event)
+    event.attendees.push(this)
+    await this.save()
+    await event.save()
+}
+
 PersonSchema.plugin(require('mongoose-autopopulate'))
 const PersonModel = mongoose.model('Person', PersonSchema)
 
