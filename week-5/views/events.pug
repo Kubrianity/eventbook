@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1 Here all the events listed 
+    each event in events 
+      h4 #{event.name}
+      p Location: #{event.place}
+      p Date: #{event.date}
+      each attendee in event.attendees
+        p Attendees: #{attendee.name} 
+      each comment in event.comments 
+        p Comments: #{comment.comment} by #{comment.author} on #{comment.createdAt} 
+    //-   each attendee in event.attendees
+    //-     p Attendees: #{attendee.name}
