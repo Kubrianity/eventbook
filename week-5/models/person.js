@@ -55,7 +55,26 @@ PersonSchema.methods.register = async function(event) {
     await event.save()
 }
 
+// Connect with a person
+PersonSchema.methods.connect = async function(person) {
+    this.contacts.push(person)
+    person.contacts.push(this)
+    await this.save()
+    await person.save()
+}
+
+// Make a comment about an event
+PersonSchema.methods.makeComment = async function(comment, event) {
+    this.comments.push(comment)
+    comment.author = this.name
+    event.comments.push(comment)
+    await this.save()
+    await comment.save()
+    await event.save()
+}
+
 PersonSchema.plugin(require('mongoose-autopopulate'))
+
 const PersonModel = mongoose.model('Person', PersonSchema)
 
 module.exports = PersonModel
