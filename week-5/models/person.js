@@ -1,13 +1,10 @@
 const mongoose = require('mongoose')
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const PersonSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
+        required: true,
     },
     upcomingEvents: [{
         type: mongoose.SchemaTypes.ObjectId,
@@ -40,6 +37,8 @@ const PersonSchema = new mongoose.Schema({
 })
 
 PersonSchema.plugin(require('mongoose-autopopulate'))
+
+PersonSchema.plugin(passportLocalMongoose)
 
 const PersonModel = mongoose.model('Person', PersonSchema)
 
