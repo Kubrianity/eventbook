@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const eventRouter = require('./routes/event')
 const personRouter = require('./routes/person')
 const commentRouter = require('./routes/comment')
+const authRouter = require('./routes/auth')
 
 const PersonModel = require('./models/person')
 
@@ -35,6 +36,7 @@ app.set('view engine', 'pug')
 app.use('/events', eventRouter)
 app.use('/person', personRouter)
 app.use('/comments', commentRouter)
+app.use('/auth', authRouter)
 
 passport.use(new LocalStrategy(PersonModel.authenticate()))
 
