@@ -4,13 +4,19 @@ const PersonModel = require('../models/person')
 const PersonService = require('../services/person-service')
 const passport = require('passport')
 
+router.get('/register', (req, res, next) => {
+    res.render('register')
+})
+
 router.get('/login', (req, res, next) => {
     res.render('login')
 })
 router.post('/register', (req, res, next) => {
     const user = new PersonModel({username : req.body.username})
     PersonModel.register( user, req.body.password, (err, account) => {
+        if(err) return
         PersonService.add(account)
+        res.redirect('/')
     })
 })
 router.post('/login', passport.authenticate('local', {
