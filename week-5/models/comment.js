@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const CommentSchema = new mongoose.Schema({
     comment: String,
     author: String,
-    createdAt: String
+},
+{
+    timestamps: true
 })
 
 const CommentModel = mongoose.model('Comment', CommentSchema)
