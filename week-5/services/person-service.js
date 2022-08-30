@@ -27,7 +27,7 @@ class PersonService extends BaseService {
 
     async makeComment(person, comment, event) {
         person.comments.push(comment)
-        comment.author = person.name
+        comment.author = person.username
         event.comments.push(comment)
         await person.save()
         await comment.save()
