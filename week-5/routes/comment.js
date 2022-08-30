@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const CommentService = require('../services/comment-service')
+const isLoggedIn = require('../middleware/ensure-login')
 
 router.get('/all', async (req, res) => {
   const comments = await CommentService.findAll()
@@ -13,12 +14,7 @@ router.get('/:id', async (req, res) => {
   res.send(comment)
 })
 
-router.post('/', async (req, res) => {
-  const newComment = await CommentService.add(req.body)
-  res.send(newComment)
-})
-
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isLoggedIn, async (req, res) => {
   await CommentService.del(req.params.id)
   res.send('Deleted!')
 })
