@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    h3 #{person.name}
+    h3 #{person.username}
     h4 Events you created
     each event in person.createdEvents
       p #{event.name}
@@ -10,9 +10,10 @@ block content
       p #{event.name}
     h4 Your contacts: 
     each contact in person.contacts 
-      p #{contact.name}
+      p #{contact.username}
     h4 Your comments
     each comment in person.comments
-      p #{comment.comment} #{comment.createdAt}
+      p Comment: #{comment.comment} 
+      p Date: #{comment.createdAt}
   
        
