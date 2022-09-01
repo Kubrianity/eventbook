@@ -14,6 +14,7 @@ router.get('/all', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const person = await PersonService.find(req.params.id)
+  if (!person) res.status(404)
   res.render('person-detail', { person })
 })
 
