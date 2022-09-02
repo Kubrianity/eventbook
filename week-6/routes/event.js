@@ -12,6 +12,7 @@ router.get('/all', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const event = await EventService.find(req.params.id)
+  if(!event) res.status(404)
   res.render('event-detail', { event })
 })
 
