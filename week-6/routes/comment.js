@@ -11,6 +11,7 @@ router.get('/all', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const comment = await CommentService.find(req.params.id)
+  if(!comment) res.status(404)
   res.send(comment)
 })
 
