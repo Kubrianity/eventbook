@@ -1,18 +1,18 @@
 <template lang = 'pug'>
 main
   h1 Main Page
-  div {{ events }}
+  event-card(v-for = "event in events" :event="event")
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import EventCard from '@/components/event-card.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    EventCard
   },
   computed: {
     ...mapState(['events'])
