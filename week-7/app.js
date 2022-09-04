@@ -4,6 +4,7 @@ require('./database-connection')
 require('dotenv').config()
 
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const eventRouter = require('./routes/event')
 const personRouter = require('./routes/person')
@@ -18,6 +19,7 @@ const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
 const app = express()
+app.use(cors())
 
 passport.serializeUser(PersonModel.serializeUser()) //these should come before initialize and session
 passport.deserializeUser(PersonModel.deserializeUser())
