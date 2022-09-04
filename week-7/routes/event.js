@@ -10,6 +10,11 @@ router.get('/all', async (req, res) => {
   res.render('events', { events })
 })
 
+router.get('/all/json', async (req, res) => {
+  const events = await EventService.findAll()
+  res.send(events)
+})
+
 router.get('/:id', async (req, res) => {
   const event = await EventService.find(req.params.id)
   if(!event) res.status(404)
