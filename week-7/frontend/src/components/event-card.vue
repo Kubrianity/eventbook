@@ -1,5 +1,11 @@
 <template lang = 'pug'>
-div.name {{ event.name }} {{ event.place }} {{ event.date }}
+div.columns.is-mobile
+  div.column
+    div.box
+      p {{ event.name }}
+      p {{ event.place }}
+      p {{ event.date }}
+      p {{ event.attendees.length }} people are going to this event
 </template>
 
 <script>
@@ -11,7 +17,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.name {
-  color: blue
+.box {
+  max-width:auto;
+  margin:15px;
+}
+button {
+  margin:15px;
+}
+p {
+  margin:5px;
 }
 </style>
