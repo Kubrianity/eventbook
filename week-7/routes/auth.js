@@ -23,11 +23,10 @@ router.post('/register', (req, res, next) => {
 
 router.post('/login',
   passport.authenticate('local', {
-    failureRedirect: '/auth/login',
-    failureMessage: true 
+    failureMessage: true,
   }),
   (req, res) => { // when authentication succeeds, the req.user property is set to the authenticated user
-    res.redirect(`/person/${req.user._id}`);
+    res.send(req.user);
 });
 
 module.exports = router
