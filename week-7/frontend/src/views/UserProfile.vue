@@ -1,8 +1,15 @@
 <template lang = 'pug'>
-main
-  h1 Your Profile Page
-  h3 Hello, {{ user.username }}
-  
+div.columns.is-mobile
+  div.column
+    div.box
+      h3 Hello, {{ user.username }} 
+      div(v-if="user.upcomingEvents.length > 0")
+        li(v-for="event in user.upcomingEvents", :key="event.name") {{ event.name }}
+      span(v-else) There is no upcoming event yet
+
+      div(v-if="user.createdEvents.length > 0")
+        li(v-for="event in user.createdEvents", :key="event.name") {{ event.name }} 
+      span(v-else) There is no organized events yet
 </template>
 
 <script>
