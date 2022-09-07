@@ -17,7 +17,7 @@ router.post('/register', (req, res, next) => {
     PersonModel.register( user, req.body.password, (err, account) => {
         if(err) return
         PersonService.add(account)
-        res.redirect(`/person/${account._id}`)
+        res.send(account)
     })
 })
 
