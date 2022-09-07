@@ -19,7 +19,8 @@ const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
 const app = express()
-app.use(cors())
+
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}))
 
 passport.serializeUser(PersonModel.serializeUser()) //these should come before initialize and session
 passport.deserializeUser(PersonModel.deserializeUser())
