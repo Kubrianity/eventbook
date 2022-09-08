@@ -33,6 +33,7 @@ router.post('/register/:eventId', async (req, res) => {
   const person = await PersonService.find(req.body.userId)
   const event = await EventService.find(req.params.eventId)
   await PersonService.register(person, event)
+  res.send(person)
 })
 
 // Add a new contact
