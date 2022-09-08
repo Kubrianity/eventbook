@@ -38,15 +38,14 @@ export default createStore({
     },
     async register({commit}, user) {
       const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
-      console.log(result)
       commit('SET_USER', result.data)
       router.push('/user/profile')
     },
     // User attends an event
     async attendEvent(context , payload) {
       await axios.post(`http://localhost:3000/person/register/${payload.eventId}`, { userId: payload.userId })
-         .then(context.dispatch('fetchEvents'))
-         .catch((err) => console.log(err))
+        .then(res => context.commit('SET_USER', res.data))
+        .then(router.push('/user/profile'))
     },     
   },
   modules: {
