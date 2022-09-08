@@ -3,13 +3,13 @@ div.columns.is-mobile
   div.column
     div.box
       h3 Hello, {{ user.username }} 
-      div(v-if="user.upcomingEvents.length > 0")
+      div(v-if="user.upcomingEvents && user.upcomingEvents.length > 0")
         li(v-for="event in user.upcomingEvents", :key="event.name") {{ event.name }}
-      span(v-else) There is no upcoming event yet
+      span(v-else) You have no upcoming events yet
 
-      div(v-if="user.createdEvents.length > 0")
+      div(v-if="user.createdEvents && user.createdEvents.length > 0")
         li(v-for="event in user.createdEvents", :key="event.name") {{ event.name }} 
-      span(v-else) There is no organized events yet
+      span(v-else) You have no organized events yet
 </template>
 
 <script>
@@ -22,10 +22,10 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-
+    
   },
   created() {
-  
+   
   }
 }
 </script>
