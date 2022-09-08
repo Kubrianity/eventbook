@@ -21,9 +21,9 @@ router.get('/:id', async (req, res) => {
   res.render('event-detail', { event })
 })
 
-router.post('/', isLoggedIn, async (req, res) => {
-  const person = await PersonService.find(req.user._id)
-  const event = await EventService.add(req.body)
+router.post('/', async (req, res) => {
+  const person = await PersonService.find(req.body.userId)
+  const event = await EventService.add(req.body.formInfo)
   await PersonService.create(person, event)
 })
 

@@ -29,8 +29,8 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
 })
 
 // Register for an event
-router.post('/register/:eventId', isLoggedIn, async (req, res) => {
-  const person = await PersonService.find(req.user._id)
+router.post('/register/:eventId', async (req, res) => {
+  const person = await PersonService.find(req.body.userId)
   const event = await EventService.find(req.params.eventId)
   await PersonService.register(person, event)
 })
