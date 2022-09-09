@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
   await PersonService.create(person, event)
 })
 
-router.delete('/:id', isLoggedIn, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   await EventService.del(req.params.id)
   res.send('Deleted!')
 })
