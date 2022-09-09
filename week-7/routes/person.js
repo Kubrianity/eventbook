@@ -23,6 +23,12 @@ router.get('/:id', async (req, res) => {
   res.render('person-detail', { person })
 })
 
+router.get('/:id/json', async (req, res) => {
+  const person = await PersonService.find(req.params.id)
+  if (!person) res.status(404)
+  res.send(person)
+})
+
 router.delete('/:id', isLoggedIn, async (req, res) => {
   await PersonService.del(req.params.id)
   res.send('Deleted!')
