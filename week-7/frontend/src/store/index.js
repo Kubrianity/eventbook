@@ -46,7 +46,13 @@ export default createStore({
       await axios.post(`http://localhost:3000/person/register/${payload.eventId}`, { userId: payload.userId })
         .then(res => context.commit('SET_USER', res.data))
         .then(router.push('/user/profile'))
-    },     
+    },
+    // User deletes an event
+    async deleteEvent(context , id) {
+      await axios.delete(`http://localhost:3000/events/${id}`)
+        .then(res => context.dispatch('fetchEvents'))
+        .catch((err) => console.log(err)) 
+    },      
   },
   modules: {
   }
