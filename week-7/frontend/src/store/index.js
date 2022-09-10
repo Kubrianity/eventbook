@@ -45,6 +45,12 @@ export default createStore({
       commit('SET_USER', result.data)
       router.push('/user/profile')
     },
+    // User creates an event
+    async addEvent(context, payload) {
+      await axios.post("http://localhost:3000/events", { userId: payload.userId, formInfo: payload.formDetail })
+        .then(() => context.dispatch('fetchEvents'))
+        .then(router.push('/'))
+    },
     // User attends an event
     async attendEvent(context , payload) {
       await axios.post(`http://localhost:3000/person/register/${payload.eventId}`, { userId: payload.userId })
