@@ -50,11 +50,12 @@ router.post('/contacts/:targetId', isLoggedIn, async (req, res) => {
 })
 
 // Make a comment for an event
-router.post('/events/:eventId/comments', isLoggedIn, async (req, res) => {
-  const person = await PersonService.find(req.user._id)
+router.post('/events/:eventId/comments', async (req, res) => {
+  const person = await PersonService.find(req.body.userId)
   const event = await EventService.find(req.params.eventId)
-  const comment = await CommentService.add(req.body)
+  const comment = await CommentService.add(req.body.comment)
   await PersonService.makeComment(person, comment, event)
+  res.send('ok!')
 })
 
 module.exports = router
