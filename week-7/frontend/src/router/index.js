@@ -4,6 +4,8 @@ import Login from '../components/login-card.vue'
 import Register from '../components/register-card.vue'
 import UserProfile from '../views/UserProfile.vue'
 import EventForm from '../components/event-creation-form.vue'
+import CommentForm from '../components/comment-form.vue'
+
 
 const routes = [
   {
@@ -31,6 +33,11 @@ const routes = [
     name: 'EventForm',
     component: EventForm
   },
+  {
+    path: '/:eventId/comment-form',
+    name: 'CommentForm',
+    component: CommentForm,
+  }
 ]
 
 const router = createRouter({

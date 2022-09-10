@@ -6,7 +6,7 @@ export default createStore({
   state: {
     events: [],
     users: [],
-    user: {},
+    user: {}
   },
   getters: {
   },
@@ -63,6 +63,12 @@ export default createStore({
       await axios.delete(`http://localhost:3000/events/${id}`)
         .then(() => context.dispatch('fetchUser', userId))
         .catch(err => console.log(err))
+    },
+    // User makes a comment 
+    async makeComment(context, payload) {
+      await axios.post(`http://localhost:3000/person/events/${payload.eventId}/comments`, { userId: payload.userId, comment: payload.commentDetail })
+        .then(() => context.dispatch('fetchEvents'))
+        .then(router.push('/'))
     },      
   },
   modules: {
