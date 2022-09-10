@@ -48,7 +48,7 @@ export default createStore({
     // User attends an event
     async attendEvent(context , payload) {
       await axios.post(`http://localhost:3000/person/register/${payload.eventId}`, { userId: payload.userId })
-        .then(res => context.commit('SET_USER', res.data))
+        .then(() => context.dispatch('fetchUser', payload.userId))
         .then(router.push('/user/profile'))
     },
     // User deletes an event
