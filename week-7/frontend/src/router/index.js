@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../components/login-card.vue'
 import Register from '../components/register-card.vue'
 import UserProfile from '../views/UserProfile.vue'
+import EventForm from '../components/event-creation-form.vue'
 
 const routes = [
   {
@@ -25,7 +26,11 @@ const routes = [
     name: 'userProfile',
     component: UserProfile
   },
-  
+  {
+    path: '/event-form',
+    name: 'EventForm',
+    component: EventForm
+  },
 ]
 
 const router = createRouter({
