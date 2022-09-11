@@ -19,12 +19,11 @@ export default {
   name: 'CommentForm',
   data() {
     return {
-        id: this.$route.params.eventId,
         comment: '',
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'event'])
   },
   methods: {
     ...mapActions(['makeComment']),
@@ -34,7 +33,7 @@ export default {
             comment: this.comment,
 
           },
-          eventId: this.id,
+          eventId: this.event._id,
           userId: this.user._id
         }
         this.makeComment(form)

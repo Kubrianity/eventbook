@@ -23,7 +23,7 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapActions(['attendEvent']),
+    ...mapActions(['fetchEvent','attendEvent']),
     handleClick() {
       let attendanceInfo = {
         userId: this.user._id,
@@ -31,6 +31,9 @@ export default {
       }
       this.attendEvent(attendanceInfo)
     }
+  },
+  created() {
+    this.fetchEvent(this.event._id)
   }
 }
 </script>
