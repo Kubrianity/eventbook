@@ -5,6 +5,7 @@ import router from '../router'
 export default createStore({
   state: {
     events: [],
+    event: {},
     users: [],
     user: {}
   },
@@ -13,6 +14,9 @@ export default createStore({
   mutations: {
     SET_EVENTS(state, data) {
       state.events = data
+    },
+    SET_EVENT(state, data) {
+      state.event = data
     },
     SET_USERS(state, data){
       state.users = data
@@ -25,6 +29,10 @@ export default createStore({
     async fetchEvents({ commit }) {
       const result = await axios.get('http://localhost:3000/events/all/json')
       commit('SET_EVENTS', result.data)
+    },
+    async fetchEvent({ commit }, id) {
+      const result = await axios.get(`http://localhost:3000/events/${id}/json`)
+      commit('SET_EVENT', result.data)
     },
     async fetchUsers({ commit }) {
       const result = await axios.get('http://localhost:3000/person/all/json')

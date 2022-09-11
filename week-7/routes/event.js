@@ -21,10 +21,17 @@ router.get('/:id', async (req, res) => {
   res.render('event-detail', { event })
 })
 
+router.get('/:id/json', async (req, res) => {
+  const event = await EventService.find(req.params.id)
+  if(!event) res.status(404)
+  res.send(event)
+})
+
 router.post('/', async (req, res) => {
   const person = await PersonService.find(req.body.userId)
   const event = await EventService.add(req.body.formInfo)
   await PersonService.create(person, event)
+  res.send('ok')
 })
 
 router.delete('/:id', async (req, res) => {
