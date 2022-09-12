@@ -12,8 +12,8 @@ div.columns.is-mobile
         li(v-for="event in user.createdEvents", :key="event._id") {{ event.name }}
           button.button.is-primary(@click.prevent = 'handleClick(event._id)' type="button" value="Delete") Delete
       span(v-else) You have no organized events yet
-
-      <router-link to="/event-form">Create one</router-link>
+      
+      router-link.button.is-primary(to="/event-form") Create one
 </template>
 
 <script>

@@ -7,10 +7,10 @@ div.columns.is-mobile
       p {{ event.date }}
       p {{ event.attendees.length }} people are going to this event
       button.button.is-primary(@click.prevent = 'handleClick' type="button" value="Attend") Attend
+      router-link.button.is-primary(v-bind:to="'/' + event._id + '/comment-form'") Make a comment
       div(v-if="event.comments && event.comments.length > 0") Comments
         p(v-for="comment in event.comments", :key="comment._id") {{ comment.author}} wrote: {{ comment.comment }} on {{ comment.createdAt }}
-
-      <router-link v-bind:to="'/' + event._id + '/comment-form'">Make a comment</router-link>
+      
 </template>
 
 <script>
@@ -44,7 +44,7 @@ export default {
   max-width:auto;
   margin:15px;
 }
-button {
+.button {
   margin:15px;
 }
 p {
