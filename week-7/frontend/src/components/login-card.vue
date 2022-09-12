@@ -1,17 +1,19 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
-    div.box
+div.hero.is-fullheight
+  div.hero-body.is-justify-content-center.is-align-items-center
+    div.columns.is-flex.is-flex-direction-column.box
       form(@submit.prevent = "handleClick")
-        div 
+        div.column
           label Username
-          input(type="text" name="username" v-model="username") 
-        div
-          label Password 
-          input(type="password" name="password" v-model="password")  
-        div  
-          button(type="submit" value="Log in") Login  
-        
+          input.input.is-primary(type="text" name="username" v-model="username") 
+        div.column
+          label Password
+          input.input.is-primary(type="password" name="password"  v-model="password")
+        div.column
+          button.button.is-primary.is-fullwidth(type="submit") Log in
+        div.has-text-centered
+          p.is-size-7 Don't have an account?
+          router-link.has-text-primary(to="/register") Sign up
 </template>
 
 <script>
@@ -42,16 +44,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.box {
-  max-width:auto;
-  margin:15px;
-}
-button {
-  margin:15px;
-}
-p {
-  margin:5px;
-}
+  label {
+    font-family: 'Courier New', monospace;
+  }
 </style>
