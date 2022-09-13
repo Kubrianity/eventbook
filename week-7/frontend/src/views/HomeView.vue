@@ -1,7 +1,9 @@
 <template lang = 'pug'>
-main
-  h1 Main Page
-  event-card(v-for = "event in events" :event="event")
+section.section
+  div.container.has-text-centered
+    h2.title Events
+    div.tile.is-ancestor
+      event-card(v-for = "event in events" :event="event")
 </template>
 
 <script>
