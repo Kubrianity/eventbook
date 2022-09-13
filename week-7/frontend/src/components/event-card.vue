@@ -1,15 +1,15 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
-    div.box
-      p {{ event.name }} 
-      p {{ event.place }}
-      p {{ event.date }}
-      p {{ event.attendees.length }} people are going to this event
-      button.button.is-primary(@click.prevent = 'handleClick' type="button" value="Attend") Attend
-      router-link.button.is-primary(v-bind:to="'/' + event._id + '/comment-form'") Make a comment
-      div(v-if="event.comments && event.comments.length > 0") Comments
-        p(v-for="comment in event.comments", :key="comment._id") {{ comment.author}} wrote: {{ comment.comment }} on {{ comment.createdAt }}
+div.tile.is-parent
+  article.tile.is-child.box
+    p.title {{ event.name }} 
+    figure.image
+      img(src="https://images.pexels.com/photos/374710/pexels-photo-374710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+    
+    p.subtitle {{ event.place }}
+    p.subtitle {{ event.date }}
+    p.subtitle {{ event.attendees.length }} people are going to this event
+    router-link.button.is-primary(v-bind:to="'/' + event._id + '/detail'") Detail
+      
       
 </template>
 
@@ -40,14 +40,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.box {
-  max-width:auto;
-  margin:15px;
-}
-.button {
-  margin:15px;
-}
-p {
-  margin:5px;
-}
+
 </style>
