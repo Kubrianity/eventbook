@@ -1,19 +1,21 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
-    div.box
-      form(@submit.prevent = "handleFormRegister")
-        div 
-          label Choose a name
-          input(type="text" name="name" v-model="name") 
-        div
-          label Choose a place 
-          input(type="text" name="place" v-model="place")  
-        div
-          label Choose a date
-          input(type="text" name="date" v-model="date")   
-        div  
-          button(type="submit" value="Create") Create
+div.hero.is-fullheight
+  h2 Submit your event here
+    div.hero-body.is-justify-content-center.is-align-items-center
+      div.columns.is-flex.is-flex-direction-column.box
+        form(@submit.prevent = "handleFormRegister")
+          div.column
+            label Choose a name
+            input.input.is-primary(type="text" name="name" v-model="name") 
+          div.column
+            label Choose a location
+            input.input.is-primary(type="text" name="place"  v-model="place")
+          div.column
+            label Choose a date 
+            input.input.is-primary(type="date" name="date"  v-model="date") 
+          div.column
+            button.button.is-primary.is-fullwidth(type="submit") Submit
+   
 </template>
 
 <script>
