@@ -5,7 +5,7 @@ import Register from '../components/register-card.vue'
 import UserProfile from '../views/UserProfile.vue'
 import EventForm from '../components/event-creation-form.vue'
 import CommentForm from '../components/comment-form.vue'
-
+import EventDetail from '../components/event-detail-card.vue'
 
 const routes = [
   {
@@ -37,6 +37,11 @@ const routes = [
     path: '/:eventId/comment-form',
     name: 'CommentForm',
     component: CommentForm,
+  },
+  {
+    path: '/:eventId/detail',
+    name: 'EventDetail',
+    component: EventDetail,
   }
 ]
 
