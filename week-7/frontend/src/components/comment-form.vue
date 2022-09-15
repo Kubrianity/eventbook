@@ -1,14 +1,16 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
-    div.box
-      form(@submit.prevent = "handleFormRegister")
-        div 
-          label Enter a comment
-          input(type="text" name="comment" v-model="comment" placeholder="Write your comment here") 
- 
-        div  
-          button(type="submit" value="Submit") Submit
+article.media
+  figure.media-left
+    p.image.is-64x64
+      img(src="https://bulma.io/images/placeholders/128x128.png")
+  div.media-content
+    div.content
+        strong {{ comment.author }}
+        br  
+        small {{ comment.createdAt }} 
+        br 
+        span {{ comment.comment }}
+div.media-right
 </template>
 
 <script>
@@ -16,12 +18,8 @@ div.columns.is-mobile
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'CommentForm',
-  data() {
-    return {
-        comment: '',
-    }
-  },
+  name: 'comment-card',
+  props: ['comment'],
   computed: {
     ...mapState(['user', 'event'])
   },
@@ -42,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+article {
+  margin: 0.75em;
+}
+</style>
