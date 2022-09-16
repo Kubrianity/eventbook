@@ -5,7 +5,7 @@ section.columns.body-columns
       div.header
         div.media
           div.media-content
-            p.title.is-4 {{ event.name }}
+            p.title.is-4 {{ event.name }}  
             p.subtitle.is-4 {{ event.date }}
             p.subtitle.is-4 {{ event.place }}
                    
@@ -18,7 +18,7 @@ section.columns.body-columns
             div.level-item.has-text-centered
         div.content
           button.button.is-primary(@click.prevent = 'handleClick' type="button" value="Attend") Attend
-
+          button.button.is-primary(v-if="user.username && checkEventStatus()")(@click.prevent = 'handleDelete(event._id)' type="button" value="Delete") Delete
   section
     comment-card(v-for = "comment in event.comments" :comment="comment")
     article.media
@@ -50,7 +50,7 @@ export default {
     ...mapState(['event','user'])
   },
   methods: {
-    ...mapActions(['fetchEvent','attendEvent', 'makeComment']),
+    ...mapActions(['fetchEvent','attendEvent', 'makeComment', 'deleteEvent']),
     handleClick() {
       let attendanceInfo = {
         userId: this.user._id,
@@ -69,6 +69,12 @@ export default {
         }
         this.makeComment(form)
         console.log(form)
+    },
+    checkEventStatus() {
+      return this.user.createdEvents.some(event => event._id == this.event._id)
+    },
+    handleDelete(id) {
+      this.deleteEvent(id)
     }
   },
   mounted() {
@@ -82,7 +88,8 @@ export default {
 p {
   margin: 0.5em;
 }
-section {
+section, button {
   margin: 0.75em;
 }
+
 </style>
