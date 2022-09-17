@@ -1,14 +1,15 @@
 <template lang = 'pug'>
-div.hero.is-fullheight
+section.hero.is-fullheight
   div.hero-body.is-justify-content-center.is-align-items-center
-    div.columns.is-flex.is-flex-direction-column.box
+    div.box
+      h1.title.is-3 Login
       form(@submit.prevent = "handleClick")
         div.column
           label Username
-          input.input.is-primary(type="text" name="username" v-model="username") 
+          input.input.is-rounded(type="text" name="username" v-model="username") 
         div.column
           label Password
-          input.input.is-primary(type="password" name="password"  v-model="password")
+          input.input.is-rounded(type="password" name="password"  v-model="password")
         div.column
           button.button.is-primary.is-fullwidth(type="submit") Log in
         div.has-text-centered
@@ -45,7 +46,5 @@ export default {
 </script>
 
 <style scoped>
-  label {
-    font-family: 'Courier New', monospace;
-  }
+
 </style>

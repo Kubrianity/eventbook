@@ -25,7 +25,7 @@ section.columns.body-columns
       div.media-content
         div.field
           p.control
-            textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment...")
+            textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3")
         nav.level
           div.level-left
             div.level-item
@@ -68,7 +68,7 @@ export default {
           userId: this.user._id
         }
         this.makeComment(form)
-        console.log(form)
+        this.comment = ''
     },
     checkEventStatus() {
       return this.user.createdEvents.some(event => event._id == this.event._id)
@@ -88,7 +88,7 @@ export default {
 p {
   margin: 0.5em;
 }
-section, button {
+section, button, a {
   margin: 0.75em;
 }
 

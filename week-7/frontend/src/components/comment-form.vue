@@ -1,16 +1,17 @@
 <template lang = 'pug'>
 article.media
-  figure.media-left
-    p.image.is-64x64
-      img(src="https://bulma.io/images/placeholders/128x128.png")
+  div.media-left
+    figure.image.is-64x64
+      img.is-rounded(src="https://bulma.io/images/placeholders/128x128.png")
   div.media-content
     div.content
+      p
         strong {{ comment.author }}
         br  
         small {{ comment.createdAt }} 
         br 
         span {{ comment.comment }}
-div.media-right
+
 </template>
 
 <script>
@@ -44,5 +45,9 @@ export default {
 <style scoped>
 article {
   margin: 0.75em;
+}
+div.content {
+  word-wrap:break-word;
+  word-break: break-all;
 }
 </style>
