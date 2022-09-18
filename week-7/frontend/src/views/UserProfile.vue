@@ -6,18 +6,18 @@ main(v-else)
   section.section(v-if="user.upcomingEvents && user.upcomingEvents.length > 0") 
     div.container.has-text-centered
       h1.title.is-3 Upcoming Events
-      div.tile.is-ancestor
+      div.columns.is-multiline.is-mobile.is-centered
         event-card(v-for = "event in user.upcomingEvents" :event="event")
   h1.title.is-3(v-else) You have no upcoming events yet
 
   section.section(v-if="user.createdEvents && user.createdEvents.length > 0") 
     div.container.has-text-centered
       h1.title.is-3 Organized Events
-      div.tile.is-ancestor
+      div.columns.is-multiline.is-mobile.is-centered
         event-card(v-for = "event in user.createdEvents" :event="event") 
   h1.title.is-3(v-else) You have no organized events yet
 
-  <router-link to="/event-form">Create one</router-link>
+  
  
 </template>
 

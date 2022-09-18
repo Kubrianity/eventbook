@@ -1,10 +1,10 @@
 <template lang = "pug">
-nav.navbar.is-dark(role="navigation" aria-label="main navigation")
+nav.navbar.is-spaced.is-dark(role="navigation" aria-label="main navigation")
   div.navbar-menu(id="navbarExampleTransparentExample")
     div.navbar-start
-      a.navbar-item EVENTBOOK
-      router-link.navbar-item(to="/") Home
+      router-link.navbar-item(to="/") HOME
       router-link.navbar-item(to="/user/profile") My Profile
+      router-link.navbar-item(to="/event-form") Create an event
     div.navbar-end
       div.navbar-item
         div.buttons
@@ -20,5 +20,8 @@ nav.navbar.is-dark(role="navigation" aria-label="main navigation")
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
    text-align: center;
+}
+nav {
+  margin-bottom:4em;
 }
 </style>
