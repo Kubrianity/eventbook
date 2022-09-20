@@ -25,11 +25,12 @@ section.columns.body-columns
       div.media-content
         div.field
           p.control
-            textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3")
+            textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3" :disabled="!user.username")
         nav.level
           div.level-left
             div.level-item
-              a.button.is-info(@click.prevent = 'handleFormRegister' type="button" value="Submit") Submit                     
+              input.button.is-info(@click.prevent = 'handleFormRegister' type="button" value="Submit" :disabled="!user.username")
+                                
 </template>
 
 <script>
@@ -88,7 +89,7 @@ export default {
 p {
   margin: 0.5em;
 }
-section, button, a {
+section, button, input {
   margin: 0.75em;
 }
 
