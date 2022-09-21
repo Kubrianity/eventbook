@@ -14,7 +14,7 @@ div.hero.is-fullheight(v-else)
           input.input.is-rounded(type="text" name="place"  v-model="place" required)
         div.column
           label Choose a date 
-          input.input.is-rounded(type="date" name="date"  v-model="date" required) 
+          input.input.is-rounded(type="date" :min="minDate" name="date"  v-model="date" required) 
         div.column
           button.button.is-primary.is-fullwidth(type="submit") Submit
    
@@ -30,7 +30,8 @@ export default {
     return {
         name: '',
         place: '',
-        date:''
+        date:'',
+        minDate: new Date().toISOString().split('T')[0]
     }
   },
   computed: {
@@ -43,7 +44,7 @@ export default {
           formDetail: {
             name: this.name,
             place: this.place,
-            date: this.date
+            date: new Date(this.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
           },
           userId: this.user._id
         }
