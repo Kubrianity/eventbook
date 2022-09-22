@@ -7,6 +7,7 @@ class PersonService extends BaseService {
     async create(person, event) {
         person.createdEvents.push(event)
         event.organizers.push(person)
+        event.attendees.push(person)
         await person.save()
         await event.save()
     }

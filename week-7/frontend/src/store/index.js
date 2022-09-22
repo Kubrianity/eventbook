@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
@@ -56,14 +57,16 @@ export default createStore({
     // User creates an event
     async addEvent(context, payload) {
       await axios.post("http://localhost:3000/events", { userId: payload.userId, formInfo: payload.formDetail })
-        .then(() => context.dispatch('fetchEvents'))
-        .then(router.push('/'))
+        .then((result) => context.dispatch('fetchEvent', result.data._id))
+        .catch(err => console.log(err))
+      router.push('/user/profile')  
     },
     // User attends an event
     async attendEvent(context , payload) {
       await axios.post(`http://localhost:3000/person/register/${payload.eventId}`, { userId: payload.userId })
         .then(() => context.dispatch('fetchUser', payload.userId))
-        .then(router.push('/user/profile'))
+        .catch(err => console.log(err))
+      router.push('/user/profile')
     },
     // User deletes an event
     async deleteEvent(context , id) {
@@ -71,6 +74,7 @@ export default createStore({
       await axios.delete(`http://localhost:3000/events/${id}`)
         .then(() => context.dispatch('fetchUser', userId))
         .catch(err => console.log(err))
+      router.push('/')  
     },
     // User makes a comment 
     async makeComment(context, payload) {
@@ -80,5 +84,8 @@ export default createStore({
     },      
   },
   modules: {
-  }
+  },
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })]
 })
