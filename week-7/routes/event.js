@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
   const person = await PersonService.find(req.body.userId)
   const event = await EventService.add(req.body.formInfo)
   await PersonService.create(person, event)
-  res.send('ok')
+  res.send(event)
 })
 
 router.delete('/:id', async (req, res) => {
