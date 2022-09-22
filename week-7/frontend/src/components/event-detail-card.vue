@@ -17,8 +17,9 @@ section.columns.body-columns
           div.level-left
             div.level-item.has-text-centered
         div.content
-          button.button.is-primary(@click.prevent = 'handleClick' type="button" value="Attend") Attend
-          button.button.is-primary(v-if="user.username && checkEventStatus()")(@click.prevent = 'handleDelete(event._id)' type="button" value="Delete") Delete
+          button.button.is-primary(v-if="user.username && checkAttendStatus()" @click.prevent = 'handleClick' type="button" value="Attend") Attend
+          router-link.has-text-primary(v-else-if="!user.username" to="/login") Log in to attend this event
+          button.button.is-primary(v-if="user.username && checkDeleteStatus()" @click.prevent = 'handleDelete' type="button" value="Delete") Delete
   section
     comment-card(v-for = "comment in event.comments" :comment="comment")
     article.media
@@ -71,14 +72,17 @@ export default {
         this.makeComment(form)
         this.comment = ''
     },
-    checkEventStatus() {
+    checkDeleteStatus() {
       return this.user.createdEvents.some(event => event._id == this.event._id)
     },
-    handleDelete(id) {
-      this.deleteEvent(id)
+    checkAttendStatus() {
+      return !(this.event.attendees.some(user => user._id == this.user._id))
+    },
+    handleDelete() {
+      this.deleteEvent(this.event._id)
     }
   },
-  mounted() {
+  created() {
     this.fetchEvent(this.$route.params.eventId)
   }
 }
