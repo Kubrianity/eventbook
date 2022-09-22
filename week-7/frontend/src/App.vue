@@ -1,31 +1,39 @@
-<template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/login">Login</router-link>
-  </nav>
-  <router-view/>
+<template lang = "pug">
+nav.navbar.is-spaced.is-dark(role="navigation" aria-label="main navigation")
+  div.navbar-menu(id="navbarExampleTransparentExample")
+    div.navbar-start
+      router-link.navbar-item(to="/") HOME
+      router-link.navbar-item(to="/user/profile" v-show="user.username") My Profile
+      router-link.navbar-item(to="/event-form" v-show="user.username") Create an event
+    div.navbar-end
+      div.navbar-item
+        div.buttons
+            router-link.button.is-primary(to="/register" v-show="!user.username")
+              strong Sign up
+            router-link.button.is-light(to="/login" v-show="!user.username") Log in
+<router-view/>            
+
 </template>
+
+<script>
+
+import { mapState} from 'vuex'
+
+export default {
+  name: 'App',
+  computed: {
+    ...mapState(['user'])
+  }
+}
+</script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+   text-align: center;
 }
-
 nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+  margin-bottom:4em;
 }
 </style>

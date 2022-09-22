@@ -1,38 +1,44 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
-    div.box
-      h3 Hello, {{ user.username }} 
-      div(v-if="user.upcomingEvents && user.upcomingEvents.length > 0") Upcoming events
-        li(v-for="event in user.upcomingEvents", :key="event._id") {{ event.name }}
-          button.button.is-primary(@click.prevent = 'handleClick(event._id)' type="button" value="Delete") Delete
-      span(v-else) You have no upcoming events yet
+h1.title.is-3(v-if="!user.username") You are not logged in yet
 
-      div(v-if="user.createdEvents && user.createdEvents.length > 0") Organized events
-        li(v-for="event in user.createdEvents", :key="event._id") {{ event.name }}
-          button.button.is-primary(@click.prevent = 'handleClick(event._id)' type="button" value="Delete") Delete
-      span(v-else) You have no organized events yet
+main(v-else)
+  h1.title.is-3 Hello, {{ user.username }}
+  section.section(v-if="user.upcomingEvents && user.upcomingEvents.length > 0") 
+    div.container.has-text-centered
+      h1.title.is-3 Upcoming Events
+      div.columns.is-multiline.is-mobile.is-centered
+        event-card(v-for = "event in user.upcomingEvents" :event="event")
+  h1.title.is-3(v-else) You have no upcoming events yet
 
-      <router-link to="/event-form">Create one</router-link>
+  section.section(v-if="user.createdEvents && user.createdEvents.length > 0") 
+    div.container.has-text-centered
+      h1.title.is-3 Organized Events
+      div.columns.is-multiline.is-mobile.is-centered
+        event-card(v-for = "event in user.createdEvents" :event="event") 
+  h1.title.is-3(v-else) You have no organized events yet
+
+  
+ 
 </template>
 
 <script>
 // @ is an alias to /src
 import { mapState, mapActions } from 'vuex'
+import EventCard from '@/components/event-card.vue'
 
 export default {
   name: 'UserProfile',
+  components: {
+    EventCard
+  },
   computed: {
     ...mapState(['user'])
   },
   methods: {
-    ...mapActions(['deleteEvent']),
-    handleClick(id) {
-      this.deleteEvent(id)
-    }
+    ...mapActions(['fetchUser']),
   },
-  created() {
-   
+  mounted() {
+    this.fetchUser(this.user._id)
   }
 }
 </script>

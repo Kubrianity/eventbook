@@ -79,7 +79,7 @@ export default createStore({
     // User makes a comment 
     async makeComment(context, payload) {
       await axios.post(`http://localhost:3000/person/events/${payload.eventId}/comments`, { userId: payload.userId, comment: payload.commentDetail })
-        .then(() => context.dispatch('fetchEvents'))
+        .then(() => context.dispatch('fetchEvent', payload.eventId))
         .catch(err => console.log(err))
     },      
   },

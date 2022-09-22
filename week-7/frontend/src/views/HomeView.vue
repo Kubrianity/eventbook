@@ -1,7 +1,9 @@
 <template lang = 'pug'>
 main
-  h1 Main Page
-  event-card(v-for = "event in events" :event="event")
+  div.container
+    h1.title.is-3 EVENTS
+    div.columns.is-multiline.is-mobile.is-centered
+      event-card(v-for = "event in events" :event="event")
 </template>
 
 <script>

@@ -1,17 +1,22 @@
 <template lang = 'pug'>
-div.columns.is-mobile
-  div.column
+section.hero.is-fullheight
+  div.hero-body.is-justify-content-center.is-align-items-center.has-text-centered
     div.box
+      h1.title.is-3 Sign up
       form(@submit.prevent = "handleRegister")
-        div 
-          label Choose a username
-          input(type="text" name="username" v-model="username") 
-        div
-          label Choose a password 
-          input(type="password" name="password" v-model="password")  
-        div  
-          button(type="submit" value="Register") Register
-</template>
+        div.column
+          label Username
+          input.input.is-rounded(type="text" name="username" v-model="username" required) 
+        div.column
+          label Password
+          input.input.is-rounded(type="password" name="password"  v-model="password" required)
+        div.column
+          button.button.is-primary.is-fullwidth(type="submit") Sign up
+        div.has-text-centered
+          p.is-size-7 Already have an account?
+          router-link.has-text-primary(to="/login") Log in 
+</template>                   
+
 
 <script>
 
@@ -40,3 +45,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
