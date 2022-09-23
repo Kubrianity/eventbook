@@ -6,14 +6,14 @@ main(v-else)
   section.section(v-if="user.upcomingEvents && user.upcomingEvents.length > 0") 
     div.container.has-text-centered
       h1.title.is-3 Upcoming Events
-      div.columns.is-multiline.is-mobile.is-centered
+      div.columns.is-multiline.is-centered
         event-card(v-for = "event in user.upcomingEvents" :event="event")
   h1.title.is-3(v-else) You have no upcoming events yet
 
   section.section(v-if="user.createdEvents && user.createdEvents.length > 0") 
     div.container.has-text-centered
       h1.title.is-3 Organized Events
-      div.columns.is-multiline.is-mobile.is-centered
+      div.columns.is-multiline.is-centered
         event-card(v-for = "event in user.createdEvents" :event="event") 
   h1.title.is-3(v-else) You have no organized events yet
 

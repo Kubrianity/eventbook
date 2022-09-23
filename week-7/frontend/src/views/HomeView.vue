@@ -1,8 +1,8 @@
 <template lang = 'pug'>
 main
-  div.container
+  div.container.has-text-centered
     h1.title.is-3 EVENTS
-    div.columns.is-multiline.is-mobile.is-centered
+    div.columns.is-multiline.is-centered
       event-card(v-for = "event in events" :event="event")
 </template>
 
