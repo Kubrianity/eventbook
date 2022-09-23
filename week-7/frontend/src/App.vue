@@ -8,6 +8,8 @@ nav.navbar.is-spaced.is-dark(role="navigation" aria-label="main navigation")
     div.navbar-end
       div.navbar-item
         div.buttons
+            button.button.is-primary(@click="logOut" v-show="user.username")
+              strong Log out
             router-link.button.is-primary(to="/register" v-show="!user.username")
               strong Sign up
             router-link.button.is-light(to="/login" v-show="!user.username") Log in
@@ -17,12 +19,15 @@ nav.navbar.is-spaced.is-dark(role="navigation" aria-label="main navigation")
 
 <script>
 
-import { mapState} from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   computed: {
     ...mapState(['user'])
+  },
+  methods: {
+    ...mapActions(['logOut'])
   }
 }
 </script>

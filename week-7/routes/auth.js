@@ -29,4 +29,11 @@ router.post('/login',
     res.send(req.user);
 });
 
+router.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.send('success!');
+    });
+  });
+
 module.exports = router

@@ -49,6 +49,12 @@ export default createStore({
       commit('SET_USER', result.data)
       router.push('/user/profile')
     },
+    async logOut({commit}) {
+      await axios.post(`http://localhost:3000/auth/logout`)
+        .then(() => sessionStorage.clear())
+      commit('SET_USER', {})
+      router.push('/')
+    },
     async register({commit}, user) {
       const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
       commit('SET_USER', result.data)
