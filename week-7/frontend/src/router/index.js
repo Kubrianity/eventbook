@@ -6,6 +6,7 @@ import UserProfile from '../views/UserProfile.vue'
 import EventForm from '../components/event-creation-form.vue'
 import CommentForm from '../components/comment-form.vue'
 import EventDetail from '../components/event-detail-card.vue'
+import EditEventForm from '../components/edit-event-form.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/:eventId/detail',
     name: 'EventDetail',
     component: EventDetail,
+  },
+  {
+    path: '/:eventId/edit',
+    name: 'EditEventForm',
+    component: EditEventForm,
   }
 ]
 

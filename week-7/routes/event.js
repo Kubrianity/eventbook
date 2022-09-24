@@ -34,6 +34,12 @@ router.post('/', async (req, res) => {
   res.send(event)
 })
 
+router.put('/:id', async (req,res) => {
+  const {id} = req.params
+  await EventService.update(id, req.body)
+  res.send('Updated')
+})
+
 router.delete('/:id', async (req, res) => {
   await EventService.del(req.params.id)
   res.send('Deleted!')

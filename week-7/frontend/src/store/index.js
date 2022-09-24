@@ -74,6 +74,13 @@ export default createStore({
         .catch(err => console.log(err))
       router.push('/user/profile')
     },
+    // User updates an event
+    async updateEvent(context , payload) {
+      await axios.put(`http://localhost:3000/events/${payload.eventId}`, payload.form)
+        .then(() => context.dispatch('fetchEvent', payload.eventId))
+        .catch(err => console.log(err))
+      router.push(`/${payload.eventId}/detail`)  
+        },
     // User deletes an event
     async deleteEvent(context , id) {
       const userId = this.state.user._id

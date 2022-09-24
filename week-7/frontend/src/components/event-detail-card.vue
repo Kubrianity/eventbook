@@ -19,7 +19,8 @@ section.columns.body-columns
         div.content
           button.button.is-primary(v-if="user.username && checkAttendStatus()" @click.prevent = 'handleClick' type="button" value="Attend") Attend
           router-link.has-text-primary(v-else-if="!user.username" to="/login") Log in to attend this event
-          button.button.is-primary(v-if="user.username && checkDeleteStatus()" @click.prevent = 'handleDelete' type="button" value="Delete") Delete
+          button.button.is-primary(v-if="user.username && checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type="button" value="Delete") Delete
+          router-link.button.is-primary(v-if="user.username && checkDeleteUpdateStatus()" v-bind:to="'/' + event._id + '/edit'") Update
   section
     comment-card(v-for = "comment in event.comments" :comment="comment")
     article.media
@@ -72,7 +73,7 @@ export default {
         this.makeComment(form)
         this.comment = ''
     },
-    checkDeleteStatus() {
+    checkDeleteUpdateStatus() {
       return this.user.createdEvents.some(event => event._id == this.event._id)
     },
     checkAttendStatus() {
@@ -93,7 +94,7 @@ export default {
 p {
   margin: 0.5em;
 }
-section, button, input {
+section, button, input, .button {
   margin: 0.75em;
 }
 
