@@ -34,6 +34,9 @@ const PersonSchema = new mongoose.Schema({
             maxDepth: 1
         }
     }]
+},
+{
+    timestamps: true
 })
 
 PersonSchema.plugin(require('mongoose-autopopulate'))
