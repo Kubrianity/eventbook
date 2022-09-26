@@ -8,35 +8,20 @@ article.media
       p
         strong {{ comment.author }}
         br  
-        small {{ comment.createdAt }} 
+        small {{ commentCreatedAt }} 
         br 
         span {{ comment.comment }}
 
 </template>
 
 <script>
-
-import { mapState, mapActions } from 'vuex'
-
 export default {
   name: 'comment-card',
   props: ['comment'],
-  computed: {
-    ...mapState(['user', 'event'])
-  },
-  methods: {
-    ...mapActions(['makeComment']),
-    handleFormRegister() {
-        const form = {
-          commentDetail: {
-            comment: this.comment,
-
-          },
-          eventId: this.event._id,
-          userId: this.user._id
-        }
-        this.makeComment(form)
-        console.log(form)
+  data() {
+    // Converts date to readable format
+    return {
+      commentCreatedAt: new Date(this.comment.createdAt).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
     }
   }
 }
