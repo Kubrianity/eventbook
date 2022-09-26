@@ -43,8 +43,8 @@ router.post('/register/:eventId', async (req, res) => {
 })
 
 // Add a new contact
-router.post('/contacts/:targetId', isLoggedIn, async (req, res) => {
-  const person = await PersonService.find(req.user._id)
+router.post('/contacts/:targetId', async (req, res) => {
+  const person = await PersonService.find(req.body.userId)
   const personToConnect = await PersonService.find(req.params.targetId)
   await PersonService.connect(person, personToConnect)
 })
