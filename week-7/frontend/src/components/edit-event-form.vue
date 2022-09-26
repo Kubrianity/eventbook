@@ -3,18 +3,18 @@ div.hero.is-fullheight
   div.hero-body.is-justify-content-center.is-align-items-center
     div.box
       h1.title.is-3 Update an event
-      form(@submit.prevent = "handleFormRegister")
+      form
         div.column
           label Name 
-          input.input.is-rounded(type="text" name="name" v-model="name" :placeholder = "event.name") 
+          input.input.is-rounded(type = "text" name = "name" v-model = "name" :placeholder = "event.name") 
         div.column
           label Location
-          input.input.is-rounded(type="text" name="place"  v-model="place" :placeholder = "event.place")
+          input.input.is-rounded(type = "text" name = "place"  v-model = "place" :placeholder = "event.place")
         div.column
           label Date 
-          input.input.is-rounded(type="date" :min="minDate" name="date" v-model="date") 
+          input.input.is-rounded(type = "date" :min = "minDate" name = "date" v-model = "date") 
         div.column
-          button.button.is-primary.is-fullwidth(@click.prevent="handleFormUpdate" type="submit") Update
+          button.button.is-primary.is-fullwidth(@click.prevent = "handleEventUpdate" type = "submit") Update
    
 </template>
 
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchEvent', 'updateEvent']),
-    handleFormUpdate() {
+    handleEventUpdate() {
         const data = {
             form: {
               name: this.name,

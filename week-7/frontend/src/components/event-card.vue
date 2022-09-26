@@ -8,33 +8,15 @@ div.column.is-two-thirds-tablet.is-half-desktop.is-one-third-widescreen
       img(src="https://images.pexels.com/photos/374710/pexels-photo-374710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
     p.subtitle(v-if = "event.attendees.length > 1") {{ event.attendees.length }} attendees
     p.subtitle(v-else) {{ event.attendees.length }} attendee  
-    router-link.button.is-primary(v-bind:to="'/' + event._id + '/detail'") Detail
+    router-link.button.is-primary(v-bind:to = "'/' + event._id + '/detail'") Detail
       
       
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
 export default {
   name: 'event-card',
-  props: ['event'],
-  computed: {
-    ...mapState(['user'])
-  },
-  methods: {
-    ...mapActions(['fetchEvent','attendEvent']),
-    handleClick() {
-      let attendanceInfo = {
-        userId: this.user._id,
-        eventId: this.event._id
-      }
-      this.attendEvent(attendanceInfo)
-    }
-  },
-  created() {
-    this.fetchEvent(this.event._id)
-  }
+  props: ['event']
 }
 </script>
 

@@ -3,18 +3,18 @@ section.hero.is-fullheight
   div.hero-body.is-justify-content-center.is-align-items-center
     div.box
       h1.title.is-3 Login
-      form(@submit.prevent = "handleClick")
+      form(@submit.prevent = "handleLogin")
         div.column
           label Username
-          input.input.is-rounded(type="text" name="username" v-model="username") 
+          input.input.is-rounded(type = "text" name = "username" v-model = "username") 
         div.column
           label Password
-          input.input.is-rounded(type="password" name="password"  v-model="password")
+          input.input.is-rounded(type = "password" name = "password"  v-model = "password")
         div.column
-          button.button.is-primary.is-fullwidth(type="submit") Log in
+          button.button.is-primary.is-fullwidth(type = "submit") Log in
         div.has-text-centered
           p.is-size-7 Don't have an account?
-          router-link.has-text-primary(to="/register") Sign up
+          router-link.has-text-primary(to = "/register") Sign up
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     ...mapActions(['logIn']),
-    handleClick() {
+    handleLogin() {
       let userInfo = {
         username: this.username,
         password: this.password

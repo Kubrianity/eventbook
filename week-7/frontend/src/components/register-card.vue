@@ -6,15 +6,15 @@ section.hero.is-fullheight
       form(@submit.prevent = "handleRegister")
         div.column
           label Username
-          input.input.is-rounded(type="text" name="username" v-model="username" required) 
+          input.input.is-rounded(type = "text" name = "username" v-model = "username" required) 
         div.column
           label Password
-          input.input.is-rounded(type="password" name="password"  v-model="password" required)
+          input.input.is-rounded(type = "password" name = "password"  v-model = "password" required)
         div.column
-          button.button.is-primary.is-fullwidth(type="submit") Sign up
+          button.button.is-primary.is-fullwidth(type = "submit") Sign up
         div.has-text-centered
           p.is-size-7 Already have an account?
-          router-link.has-text-primary(to="/login") Log in 
+          router-link.has-text-primary(to = "/login") Log in 
 </template>                   
 
 
