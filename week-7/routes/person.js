@@ -29,6 +29,13 @@ router.get('/:id/json', async (req, res) => {
   res.send(person)
 })
 
+// Updates person model
+router.patch('/:id', async (req,res) => {
+  const {id} = req.params
+  await PersonService.update(id, req.body)
+  res.send('Updated')
+})
+
 router.delete('/:id', isLoggedIn, async (req, res) => {
   await PersonService.del(req.params.id)
   res.send('Deleted!')
@@ -47,6 +54,7 @@ router.post('/contacts/:targetId', async (req, res) => {
   const person = await PersonService.find(req.body.userId)
   const personToConnect = await PersonService.find(req.params.targetId)
   await PersonService.connect(person, personToConnect)
+  res.send('connected!')
 })
 
 // Make a comment for an event

@@ -43,6 +43,11 @@ export default createStore({
       const result = await axios.get(`http://localhost:3000/person/${id}/json`);
       commit("SET_USER", result.data);
     },
+    async register({commit}, user) {
+      const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
+      commit('SET_USER', result.data)
+      router.push('/user/profile')
+    },
     async logIn({commit}, user) {
       const result = await axios.post(`http://localhost:3000/auth/login`, user, { withCredentials: true, origin: 'http://localhost:8080'})
       if(!result.data) return
@@ -52,13 +57,16 @@ export default createStore({
     async logOut({commit}) {
       await axios.post(`http://localhost:3000/auth/logout`)
         .then(() => sessionStorage.clear())
+        .catch(err => console.log(err))
       commit('SET_USER', {})
       router.push('/')
     },
-    async register({commit}, user) {
-      const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
-      commit('SET_USER', result.data)
-      router.push('/user/profile')
+    // User updates profile
+    async updateProfile(context , payload) {
+      await axios.patch(`http://localhost:3000/person/${payload.userId}`, { username : payload.username })
+        .then(() => context.dispatch('fetchUser', payload.userId))
+        .catch(err => console.log(err))
+      router.push('/user/profile')  
     },
     // User creates an event
     async addEvent(context, payload) {
@@ -94,7 +102,14 @@ export default createStore({
       await axios.post(`http://localhost:3000/person/events/${payload.eventId}/comments`, { userId: payload.userId, comment: payload.commentDetail })
         .then(() => context.dispatch('fetchEvent', payload.eventId))
         .catch(err => console.log(err))
-    },      
+    },
+    // User connects with another user
+    async connect(context, payload) {
+      await axios.post(`http://localhost:3000/person/contacts/${payload.targetId}`, { userId: payload.userId })
+        .then(() => context.dispatch('fetchUser', payload.userId))
+        .catch(err => console.log(err))
+      router.push('/user/profile')  
+    }    
   },
   modules: {
   },
