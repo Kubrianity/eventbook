@@ -1,7 +1,7 @@
 <template lang = 'pug'>
 section.container
-	div.columns.is-multiline
-		div.column.is-3
+	div.columns.is-multiline.is-centered
+		div.column.is-9
 			span.tag.is-rounded.is-link.is-large contacts
 				div.media-right
 					span.has-text-grey-light
@@ -15,29 +15,32 @@ section.container
 		div.column.is-9
 			div.box.content
 				article.post
-					h3 Newsletter
+					h3 Events
 					div.media
 						div.media-content
 							div.content
-								p
-									router-link(v-bind:to = "'/' + getUserData.recentEvent._id + '/detail'") {{ getUserData.recentEvent.name }} &nbsp;
-									span.tag {{ getUserData.recentEvent.date }} 
+								p(v-if = "!(getUserData.numberOfEvents)") You don't have any events yet!
+								p(v-show = "getUserData.upcomingEvents" v-for = "event in getUserData.upcomingEvents") 
+									router-link(v-bind:to = "'/' + event._id + '/detail'") {{ event.name }} &nbsp;
+									span.tag {{ event.date }} 	
+								p(v-show = "getUserData.createdEvents" v-for = "event in getUserData.createdEvents")
+									router-link(v-bind:to = "'/' + event._id + '/detail'") {{ event.name }} &nbsp;
+									span.tag {{ event.date }} 
 								
 				article.post
 					h4 Last activities
 					div.media
 						div.media-content
 							div.content
-								p Your recent contact is: {{ getUserData.recentContact }}
+								p(v-if = "getUserData.numberOfContacts") Your recent contact is: {{ getUserData.recentContact }}
+								p(v-else) You have no contact yet
 
-		div.column.is-3
-			span.tag.is-light.is-danger.is-large Edit profile
-			
-		div.column.is-9
+		div.column.is-6.edit
+			span.tag.is-light.is-danger.is-large.edit-heading Edit profile
 			div.box.content
 				label.label Change username
-				input.input(type="text" name = "username" v-model = "username" :placeholder="user.username")
-				button.button.is-light.is-danger(@click.prevent = 'handleProfileUpdate' type = "submit") Submit
+				input.input(type="text" name = "username" v-model = "username" :placeholder="user.username" )
+				button.button.is-rounded.is-light.is-danger(@click.prevent = 'handleProfileUpdate' type = "submit") Submit
 
 </template>
 
@@ -62,8 +65,9 @@ export default {
 			return {
 				numberOfContacts: this.user.contacts.length,
 				numberOfEvents: this.user.upcomingEvents.length + this.user.createdEvents.length,
-				recentEvent: this.user.upcomingEvents[this.user.upcomingEvents.length - 1],
-				recentContact: this.user.contacts[this.user.contacts.length - 1].username
+				upcomingEvents: this.user.upcomingEvents.length ? this.user.upcomingEvents : null,
+				createdEvents: this.user.createdEvents.length ? this.user.createdEvents : null,
+				recentContact: this.user.contacts.length ? this.user.contacts[this.user.contacts.length - 1].username : null
 			}
 		}
 	},
@@ -86,12 +90,18 @@ export default {
 <style scoped>
 .tag.is-rounded, button {
   margin: 0.50em;
-  width:7em;
+  width: 7em;
 }
 article {
 	margin: 0.50em;
 }
 h4 {
 	margin: 1em;
+}
+.edit-heading {
+	margin: 1em;
+}
+.edit {
+	margin: 2.5em;
 }
 </style>
