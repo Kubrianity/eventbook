@@ -6,10 +6,10 @@ section.hero.is-fullheight
       form(@submit.prevent = "handleLogin")
         div.column
           label Username
-          input.input.is-rounded(type = "text" name = "username" v-model = "username") 
+          input.input.is-rounded(type = "text" name = "username" v-model = "username" required) 
         div.column
           label Password
-          input.input.is-rounded(type = "password" name = "password"  v-model = "password")
+          input.input.is-rounded(type = "password" name = "password"  v-model = "password" required)
         div.column
           button.button.is-primary.is-fullwidth(type = "submit") Log in
         div.has-text-centered
