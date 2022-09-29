@@ -19,7 +19,10 @@ section.hero.is-fullheight
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters} from 'vuex'
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
 
 export default {
   name: 'Login',
@@ -30,16 +33,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'error']),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['logIn']),
-    handleLogin() {
+    async handleLogin() {
       let userInfo = {
         username: this.username,
         password: this.password
       }
-      this.logIn(userInfo)
+      await this.logIn(userInfo)
+      if(!this.isAuthenticated) {
+        toaster.error('Your username or password is incorrect', {position: 'top'});
+      }
     }
   }
 }
