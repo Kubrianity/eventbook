@@ -33,7 +33,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'error']),
+    ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
   methods: {
