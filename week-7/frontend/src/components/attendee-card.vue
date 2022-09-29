@@ -19,7 +19,7 @@ article.media(v-show = "user._id != attendee._id")
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'attendee-card',
@@ -31,7 +31,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['connect']),
@@ -44,7 +45,7 @@ export default {
     },
     // Check if the attendee is already in the user's contact list
     checkConnectStatus() {
-      return this.user._id && !(this.user.contacts.some(contact => contact._id == this.attendee._id))
+      return this.isAuthenticated && !(this.user.contacts.some(contact => contact._id == this.attendee._id))
     }
   }
 }

@@ -21,15 +21,15 @@ section.columns.is-centered
           div.level-left
             div.level-item.has-text-centered
         div.content
-          button.button.is-primary(v-if = "user.username && checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
-          router-link.has-text-primary(v-else-if = "!(user.username)" to="/login") Log in to attend this event
-          button.button.is-primary(v-if = "user.username && checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
-          router-link.button.is-primary(v-if = "user.username && checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
+          button.button.is-primary(v-if = "checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
+          router-link.has-text-primary(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
+          button.button.is-primary(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
+          router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
 
   section.column
     h3.title.is-3 Comments
     comment-card(v-for = "comment in event.comments" :comment="comment")
-    router-link.has-text-info(v-if = "!(user.username)" to="/login") Log in to make a comment
+    router-link.has-text-info(v-if = "!isAuthenticated" to="/login") Log in to make a comment
     div.field(v-else)
       p.control
         textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3" required)
@@ -39,7 +39,7 @@ section.columns.is-centered
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import CommentCard from './comment-card.vue'
 import AttendeeCard from './attendee-card.vue'
 export default {
@@ -54,7 +54,8 @@ export default {
     AttendeeCard
   },
   computed: {
-    ...mapState(['event','user'])
+    ...mapState(['event','user']),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['fetchEvent','attendEvent', 'makeComment', 'deleteEvent']),
@@ -79,11 +80,11 @@ export default {
     },
     // Check if the user created this event 
     checkDeleteUpdateStatus() {
-      return this.user.createdEvents.some(event => event._id == this.event._id)
+      return this.isAuthenticated && this.user.createdEvents.some(event => event._id == this.event._id)
     },
     // Check if the user is already an attendee
     checkAttendStatus() {
-      return !(this.event.attendees.some(user => user._id == this.user._id))
+      return this.isAuthenticated && !(this.event.attendees.some(user => user._id == this.user._id))
     },
     handleDelete() {
       this.deleteEvent(this.event._id)

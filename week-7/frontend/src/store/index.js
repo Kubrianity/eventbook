@@ -11,6 +11,7 @@ export default createStore({
     user: {}
   },
   getters: {
+    isAuthenticated: state => state.user._id
   },
   mutations: {
     SET_EVENTS(state, data) {
@@ -49,10 +50,15 @@ export default createStore({
       router.push('/user/profile')
     },
     async logIn({commit}, user) {
-      const result = await axios.post(`http://localhost:3000/auth/login`, user, { withCredentials: true, origin: 'http://localhost:8080'})
-      if(!result.data) return
-      commit('SET_USER', result.data)
-      router.push('/user/profile')
+      try {
+        const result = await axios.post(`http://localhost:3000/auth/login`, user, { withCredentials: true, origin: 'http://localhost:8080'})
+        commit('SET_USER', result.data)
+        router.push('/user/profile')
+      }
+      catch(e) {
+        console.log(e)
+        return
+      }
     },
     async logOut({commit}) {
       await axios.post(`http://localhost:3000/auth/logout`)
