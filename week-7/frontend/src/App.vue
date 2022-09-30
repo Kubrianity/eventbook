@@ -1,6 +1,12 @@
 <template lang = "pug">
 nav.navbar.is-spaced.is-dark(role="navigation" aria-label="main navigation")
-  div.navbar-menu(id="navbarExampleTransparentExample")
+  div.navbar-brand
+    a.navbar-burger(role="button" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample")
+      span(aria-hidden="true")
+      span(aria-hidden="true")
+      span(aria-hidden="true")
+
+  div.navbar-menu(id="navbarBasicExample") 
     div.navbar-start
       router-link.navbar-item(to = "/") HOME
       router-link.navbar-item(to = "/user/profile" v-show="user.username") My Profile
@@ -29,7 +35,21 @@ export default {
     ...mapGetters(['isAuthenticated'])
   },
   methods: {
-    ...mapActions(['logOut'])
+    ...mapActions(['logOut']),
+  },
+  mounted() {
+    // Toggle is-active class on touch devices
+    const navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'))
+    navbarBurgers.forEach( element => {
+      element.addEventListener('click', () => {
+    
+      const target = element.dataset.target;
+      const targetEl = document.getElementById(target);
+
+      element.classList.toggle('is-active');
+      targetEl.classList.toggle('is-active');
+      });
+    });
   }
 }
 </script>
@@ -42,5 +62,8 @@ export default {
 }
 nav {
   margin-bottom:4em;
+}
+.navbar-item {
+  font-weight: 500;
 }
 </style>
