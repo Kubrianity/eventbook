@@ -20,7 +20,10 @@ section.hero.is-fullheight
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
 
 export default {
   name: 'Register',
@@ -31,16 +34,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['register']),
-    handleRegister() {
+    async handleRegister() {
       let userInfo = {
         username: this.username,
         password: this.password
       }
-      this.register(userInfo)
+      await this.register(userInfo)
+      if(!this.isAuthenticated) {
+        toaster.error('This user/username already exists', {position: 'top'});
+      }
     }
   }
 }

@@ -15,7 +15,10 @@ router.get('/login', (req, res, next) => {
 router.post('/register', (req, res, next) => {
     const user = new PersonModel({username : req.body.username})
     PersonModel.register( user, req.body.password, (err, account) => {
-        if(err) return
+        if(err) {
+          res.sendStatus(401)
+          return
+        }
         PersonService.add(account)
         res.send(account)
     })

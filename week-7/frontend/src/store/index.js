@@ -45,9 +45,15 @@ export default createStore({
       commit("SET_USER", result.data);
     },
     async register({commit}, user) {
-      const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
-      commit('SET_USER', result.data)
-      router.push('/user/profile')
+      try {
+        const result = await axios.post(`http://localhost:3000/auth/register`, user, { withCredentials: true, origin: 'http://localhost:8080'})
+        commit('SET_USER', result.data)
+        router.push('/user/profile')
+      }
+      catch(err) {
+        console.log(err)
+        return
+      }
     },
     async logIn({commit}, user) {
       try {
@@ -55,8 +61,8 @@ export default createStore({
         commit('SET_USER', result.data)
         router.push('/user/profile')
       }
-      catch(e) {
-        console.log(e)
+      catch(err) {
+        console.log(err)
         return
       }
     },
