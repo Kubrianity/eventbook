@@ -1,12 +1,10 @@
 <template lang = 'pug'>
-article.media(v-show = "user._id != attendee._id")
-  div.media-left
-    figure.image.is-64x64
-      img.is-rounded(src="https://bulma.io/images/placeholders/128x128.png")
+article.media
   div.media-content
-    div.content.level-left
+    div.content
       p
-        strong {{ attendee.username }}
+        strong(v-if = "user._id == attendee._id") You
+        strong(v-else) {{ attendee.username }}
         br  
         small member since
         br
@@ -45,7 +43,9 @@ export default {
     },
     // Check if the attendee is already in the user's contact list
     checkConnectStatus() {
-      return this.isAuthenticated && !(this.user.contacts.some(contact => contact._id == this.attendee._id))
+      return this.isAuthenticated 
+        && (this.user._id != this.attendee._id)
+        && !(this.user.contacts.some(contact => contact._id == this.attendee._id))
     }
   }
 }
@@ -62,6 +62,6 @@ div.content {
 button {
   border-radius: 8px;
   margin: 0.25em;
-  padding:0.50em;
+  padding:0.30em;
 }
 </style>

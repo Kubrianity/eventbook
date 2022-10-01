@@ -1,8 +1,5 @@
 <template lang = 'pug'>
 article.media
-  div.media-left
-    figure.image.is-64x64
-      img.is-rounded(src="https://bulma.io/images/placeholders/128x128.png")
   div.media-content
     div.content
       p

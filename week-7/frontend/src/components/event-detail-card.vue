@@ -1,10 +1,6 @@
 <template lang = 'pug'>
-section.columns.is-centered
-  section.column
-    h3.title.is-3 Attendees
-    attendee-card(v-for = "attendee in event.attendees" :attendee="attendee")
-      
-  div.column.is-two-fifths-desktop
+main.columns.is-centered.is-multiline
+  section.column.is-three-fifths-tablet.is-two-fifths-desktop
     div.card
       div.header
         div.media
@@ -26,14 +22,18 @@ section.columns.is-centered
           button.button.is-primary(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
           router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
 
-  section.column
-    h3.title.is-3 Comments
+  section.column.is-three-fifths-tablet.is-one-fifth-desktop
+    h4.title.is-4 Attendees
+    attendee-card(v-for = "attendee in event.attendees" :attendee="attendee")
+
+  section.box.column.is-three-fifths-tablet.is-two-fifths-desktop
+    h3.title.is-4 Comments
     comment-card(v-for = "comment in event.comments" :comment="comment")
     router-link.has-text-info(v-if = "!isAuthenticated" to="/login") Log in to make a comment
     div.field(v-else)
       p.control
         textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3" required)
-      div.level-left.level-item
+      div.level-item
         input.button.is-info(@click.prevent = 'handleComment' type="button" value="Submit")
                                 
 </template>
@@ -101,8 +101,10 @@ export default {
 p, h {
   margin: 0.5em;
 }
-section, button, input, .button {
+button, input, .button {
   margin: 0.75em;
 }
-
+section {
+  margin: 1em;
+}
 </style>
