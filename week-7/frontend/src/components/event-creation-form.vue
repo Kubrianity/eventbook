@@ -5,13 +5,13 @@ div.hero.is-fullheight
       h1.title.is-3 Submit an event
       form(@submit.prevent = "handleFormRegister")
         div.column
-          label Choose a name
+          label Name
           input.input.is-rounded(type = "text" name = "name" v-model = "name" required) 
         div.column
-          label Choose a location
+          label Location
           input.input.is-rounded(type = "text" name = "place"  v-model = "place" required)
         div.column
-          label Choose a date 
+          label Date 
           input.input.is-rounded(type = "date" :min = "minDate" name = "date"  v-model = "date" required) 
         div.column
           button.button.is-primary.is-fullwidth(type = "submit") Submit

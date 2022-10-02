@@ -27,3 +27,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  div.container {
+    margin-top: 5em;
+  }
+</style>

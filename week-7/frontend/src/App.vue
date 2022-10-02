@@ -60,9 +60,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
    text-align: center;
 }
-nav {
-  margin-bottom:4em;
-}
 .navbar-item {
   font-weight: 500;
 }

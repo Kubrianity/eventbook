@@ -1,5 +1,6 @@
 <template lang = 'pug'>
 section.container
+	h3.title.is-3 Welcome, {{ user.username }}
 	div.columns.is-multiline.is-centered
 		div.column.is-9
 			span.tag.is-rounded.is-link.is-large contacts
@@ -33,13 +34,13 @@ section.container
 						div.media-content
 							div.content
 								p(v-if = "getUserData.numberOfContacts") Your recent contact is: {{ getUserData.recentContact }}
-								p(v-else) You have no contact yet
+								p(v-else) You don't have any contacts yet!
 
 		div.column.is-6.edit
 			span.tag.is-light.is-danger.is-large.edit-heading Edit profile
 			div.box.content
 				label.label Change username
-				input.input(type="text" name = "username" v-model = "username" :placeholder="user.username" )
+				input.input(type="text" name = "username" v-model = "username" :placeholder="user.username" required)
 				button.button.is-rounded.is-light.is-danger(@click.prevent = 'handleProfileUpdate' type = "submit") Submit
 
 </template>

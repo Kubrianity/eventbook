@@ -18,7 +18,7 @@ main.columns.is-centered.is-multiline
             div.level-item.has-text-centered
         div.content
           button.button.is-primary(v-if = "checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
-          router-link.has-text-primary(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
+          router-link.has-text-info(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
           button.button.is-primary(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
           router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
 
