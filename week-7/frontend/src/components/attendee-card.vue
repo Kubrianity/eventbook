@@ -5,10 +5,8 @@ article.media
       p
         strong(v-if = "user._id == attendee._id") You
         strong(v-else) {{ attendee.username }}
-        br  
-        small member since
         br
-        small {{ attendeeCreatedAt }}
+        small member since {{ attendeeCreatedAt }}
         br
         button.button.is-primary(v-show = "checkConnectStatus()" @click.prevent = "handleConnect") Connect
         router-link.has-text-info(v-show = "!(user._id)" to = "/login") Log in to connect

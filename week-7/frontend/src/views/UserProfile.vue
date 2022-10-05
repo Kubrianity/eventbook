@@ -1,6 +1,6 @@
 <template lang = 'pug'>
 section.container
-	h3.title.is-3 Welcome, {{ user.username }}
+	h1.title.is-3 Welcome, {{ user.username }}
 	div.columns.is-multiline.is-centered
 		div.column.is-9
 			span.tag.is-rounded.is-link.is-large contacts
@@ -16,7 +16,7 @@ section.container
 		div.column.is-9
 			div.box.content
 				article.post
-					h3 Events
+					h4.title.is-4 Events
 					div.media
 						div.media-content
 							div.content
@@ -29,20 +29,20 @@ section.container
 									span.tag {{ event.date }} 
 								
 				article.post
-					h4 Last activities
+					h4.title.is-4 Contacts
 					div.media
 						div.media-content
 							div.content
-								p(v-if = "getUserData.numberOfContacts") Your recent contact is: {{ getUserData.recentContact }}
-								p(v-else) You don't have any contacts yet!
-
+								p(v-if = "!(getUserData.numberOfContacts)") You don't have any contacts yet!
+								p.contacts(v-else v-for = "contact in getUserData.contacts") {{ contact.username }}
+							  		
 		div.column.is-6.edit
 			span.tag.is-light.is-danger.is-large.edit-heading Edit profile
 			div.box.content
 				label.label Change username
 				input.input(type="text" name = "username" v-model = "username" :placeholder="user.username" required)
-				button.button.is-rounded.is-light.is-danger(@click.prevent = 'handleProfileUpdate' type = "submit") Submit
-
+				button.button.is-rounded.is-light.is-danger(@click.prevent = 'handleProfileUpdate' type = "submit") Submit						 		
+								
 </template>
 
 <script>
@@ -68,7 +68,7 @@ export default {
 				numberOfEvents: this.user.upcomingEvents.length + this.user.createdEvents.length,
 				upcomingEvents: this.user.upcomingEvents.length ? this.user.upcomingEvents : null,
 				createdEvents: this.user.createdEvents.length ? this.user.createdEvents : null,
-				recentContact: this.user.contacts.length ? this.user.contacts[this.user.contacts.length - 1].username : null
+				contacts: this.user.contacts.length ? this.user.contacts : null
 			}
 		}
 	},
@@ -89,6 +89,9 @@ export default {
 </script>
 
 <style scoped>
+section.container {
+	margin-top: 4em;
+}
 .tag.is-rounded, button {
   margin: 0.50em;
   width: 7em;
