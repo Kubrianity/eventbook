@@ -78,8 +78,7 @@ export default createStore({
       await axios.patch(`http://localhost:3000/person/${payload.userId}`, { username : payload.username })
         .then(() => context.dispatch('fetchUser', payload.userId))
         .catch(err => console.log(err))
-      router.push('/user/profile')  
-    },
+      },
     // User creates an event
     async addEvent(context, payload) {
       await axios.post("http://localhost:3000/events", { userId: payload.userId, formInfo: payload.formDetail })

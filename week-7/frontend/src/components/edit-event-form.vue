@@ -6,13 +6,13 @@ div.hero.is-fullheight
       form
         div.column
           label Name 
-          input.input.is-rounded(type = "text" name = "name" v-model = "name" :placeholder = "event.name") 
+          input.input.is-rounded(type = "text" name = "name" v-model = "event.name") 
         div.column
           label Location
-          input.input.is-rounded(type = "text" name = "place"  v-model = "place" :placeholder = "event.place")
+          input.input.is-rounded(type = "text" name = "place"  v-model = "event.place")
         div.column
           label Date 
-          input.input.is-rounded(type = "date" :min = "minDate" name = "date" v-model = "date") 
+          input.input.is-rounded(type = "date" :min = "minDate" name = "date" v-model = "event.date") 
         div.column
           button.button.is-primary.is-fullwidth(@click.prevent = "handleEventUpdate" type = "submit") Update
    
@@ -26,10 +26,7 @@ export default {
   name: 'EditEventForm',
   data() {
     return {
-        name: '',
-        place: '',
-        date:'',
-        minDate: new Date().toISOString().split('T')[0]
+      minDate: new Date().toISOString().split('T')[0]
     }
   },
   computed: {
@@ -40,9 +37,9 @@ export default {
     handleEventUpdate() {
         const data = {
             form: {
-              name: this.name,
-              place: this.place,
-              date: new Date(this.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+              name: this.event.name,
+              place: this.event.place,
+              date: new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
             },
             eventId: this.event._id
         }
