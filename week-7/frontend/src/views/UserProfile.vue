@@ -48,6 +48,9 @@ section.container
 <script>
 import { mapState, mapActions } from 'vuex'
 import EventCard from '@/components/event-card.vue'
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
 
 export default {
   name: 'UserProfile',
@@ -60,7 +63,7 @@ export default {
     EventCard
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'users']),
     getUserData () {
       return {
         numberOfContacts: this.user.contacts.length,
@@ -72,17 +75,34 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchUser', 'updateProfile']),
+    ...mapActions(['fetchUser','fetchUsers', 'updateProfile']),
     handleProfileUpdate() {
+      const usernames = this.users.map(user => user.username)
+      // Check if the username already exists
+      if(usernames.some(name => name == this.username.trim())) {
+        toaster.error('This username is already taken! Please try another one', {position: 'top'});
+        return
+      }
+      // Validate for whitespaces and length
+      else if(!this.username.trim() || this.username.trim().length < 3) {
+        toaster.error('Username must contain at least 3 characters', {position: 'top'});
+        return
+      }
       const data = {
         username: this.username,
         userId: this.user._id
       }
-    this.updateProfile(data)
+      this.updateProfile(data)
     }
   },
-  mounted() {
+  created() {
     this.fetchUser(this.user._id)
+  },
+  // Watch for changes in username state to get updated usernames 
+  watch: {
+    username() {
+      this.fetchUsers()
+    }
   }
 }
 </script>
