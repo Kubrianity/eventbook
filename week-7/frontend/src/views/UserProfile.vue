@@ -46,7 +46,6 @@ section.container
 </template>
 
 <script>
-// @ is an alias to /src
 import { mapState, mapActions } from 'vuex'
 import EventCard from '@/components/event-card.vue'
 
