@@ -34,7 +34,11 @@ const EventSchema = new mongoose.Schema({
         autopopulate: {
             maxDepth: 1
         }
-    }]
+    }],
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 })
 
 EventSchema.plugin(require('mongoose-autopopulate'))

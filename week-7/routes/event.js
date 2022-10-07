@@ -11,7 +11,7 @@ router.get('/all', async (req, res) => {
 })
 
 router.get('/all/json', async (req, res) => {
-  const events = await EventService.findAll()
+  const events = await EventService.findAndFilterByDate()
   res.send(events)
 })
 

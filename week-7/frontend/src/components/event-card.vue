@@ -1,6 +1,6 @@
 <template lang = 'pug'>
 div.column.is-two-thirds-tablet.is-half-desktop.is-one-third-widescreen
-  div.box.has-text-centered
+  div.box.has-text-centered(:class = "{disabled: !isActive}")
     p.title.is-4 {{ event.name }}
     p.subtitle {{ event.place }}
     p.subtitle {{ event.date }} 
@@ -16,7 +16,12 @@ div.column.is-two-thirds-tablet.is-half-desktop.is-one-third-widescreen
 <script>
 export default {
   name: 'event-card',
-  props: ['event']
+  props: ['event'],
+  computed: {
+    isActive() {
+      return this.event.isActive
+    }
+  }
 }
 </script>
 
@@ -24,5 +29,9 @@ export default {
 <style scoped>
 p {
   margin:0.50em;
+}
+.disabled {
+  opacity: 0.50;
+  pointer-events: none
 }
 </style>

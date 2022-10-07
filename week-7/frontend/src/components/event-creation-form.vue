@@ -42,7 +42,7 @@ export default {
           formDetail: {
             name: this.name,
             place: this.place,
-            date: new Date(this.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+            date: this.date
           },
           userId: this.user._id
         }

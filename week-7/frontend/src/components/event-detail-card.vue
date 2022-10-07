@@ -6,7 +6,7 @@ main.columns.is-centered.is-multiline
         div.media
           div.media-content
             p.title.is-4 {{ event.name }}  
-            p.subtitle.is-4 {{ event.date }}
+            p.subtitle.is-4 {{ formatedDate }}
             p.subtitle.is-4 {{ event.place }}
                    
       div.card-image
@@ -55,7 +55,10 @@ export default {
   },
   computed: {
     ...mapState(['event','user']),
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated']),
+    formatedDate() {
+      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+    }
   },
   methods: {
     ...mapActions(['fetchEvent','attendEvent', 'makeComment', 'deleteEvent']),

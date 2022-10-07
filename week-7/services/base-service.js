@@ -19,6 +19,7 @@ module.exports = class Service {
   async find(itemId) {
     return this.model.findById({_id: itemId})
   }
+  
   async update(itemId, updatedValues) {
     return this.model.findByIdAndUpdate({_id: itemId }, updatedValues, {runValidators:true, new:true})
   }
