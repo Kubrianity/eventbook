@@ -3,7 +3,7 @@ div.column.is-two-thirds-tablet.is-half-desktop.is-one-third-widescreen
   div.box.has-text-centered(:class = "{disabled: !isActive}")
     p.title.is-4 {{ event.name }}
     p.subtitle {{ event.place }}
-    p.subtitle {{ event.date }} 
+    p.subtitle {{ formatedDate }} 
     figure.image.is-4by3
       img(src="https://images.pexels.com/photos/374710/pexels-photo-374710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
     p.subtitle(v-if = "event.attendees.length > 1") {{ event.attendees.length }} attendees
@@ -20,6 +20,9 @@ export default {
   computed: {
     isActive() {
       return this.event.isActive
+    },
+    formatedDate() {
+      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
     }
   }
 }

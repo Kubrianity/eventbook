@@ -12,7 +12,7 @@ div.hero.is-fullheight
           input.input.is-rounded(type = "text" name = "place"  v-model = "event.place")
         div.column
           label Date 
-          input.input.is-rounded(type = "date" :min = "minDate" name = "date" v-model = "event.date") 
+          input.input.is-rounded(type = "date" :min = "minDate()" name = "date" v-model = "event.date") 
         div.column
           button.button.is-primary.is-fullwidth(@click.prevent = "handleEventUpdate" type = "submit") Update
    
@@ -26,7 +26,11 @@ export default {
   name: 'EditEventForm',
   data() {
     return {
-      minDate: new Date().toISOString().split('T')[0]
+      minDate() {
+        let date = new Date();
+        date.setDate(date.getDate() + 1);
+        return date.toISOString().split('T')[0];
+      }
     }
   },
   computed: {
@@ -39,7 +43,7 @@ export default {
             form: {
               name: this.event.name,
               place: this.event.place,
-              date: new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+              date: this.event.date
             },
             eventId: this.event._id
         }

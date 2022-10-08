@@ -12,7 +12,7 @@ div.hero.is-fullheight
           input.input.is-rounded(type = "text" name = "place"  v-model = "place" required)
         div.column
           label Date 
-          input.input.is-rounded(type = "date" :min = "minDate" name = "date"  v-model = "date" required) 
+          input.input.is-rounded(type = "date" :min = "minDate()" name = "date"  v-model = "date" required) 
         div.column
           button.button.is-primary.is-fullwidth(type = "submit") Submit
    
@@ -26,10 +26,14 @@ export default {
   name: 'EventForm',
   data() {
     return {
-        name: '',
-        place: '',
-        date:'',
-        minDate: new Date().toISOString().split('T')[0]
+      name: '',
+      place: '',
+      date: '',
+      minDate() {
+        let date = new Date();
+        date.setDate(date.getDate() + 1);
+        return date.toISOString().split('T')[0];
+      }
     }
   },
   computed: {
