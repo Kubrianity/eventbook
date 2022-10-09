@@ -1,5 +1,5 @@
 <template lang = 'pug'>
-main.columns.is-centered.is-multiline
+main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
   section.column.is-three-fifths-tablet.is-two-fifths-desktop
     div.card
       div.header
@@ -19,7 +19,7 @@ main.columns.is-centered.is-multiline
         div.content
           button.button.is-primary(v-if = "checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
           router-link.has-text-info(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
-          button.button.is-primary(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
+          button.button.is-warning(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
           router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
 
   section.column.is-three-fifths-tablet.is-one-fifth-desktop
@@ -56,6 +56,12 @@ export default {
   computed: {
     ...mapState(['event','user']),
     ...mapGetters(['isAuthenticated']),
+    isActive() {
+      return this.event.isActive
+    },
+    isDeleted() {
+      return this.event.isDeleted
+    },
     formatedDate() {
       return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
     }
@@ -112,5 +118,9 @@ button, input, .button {
 }
 section {
   margin: 1em;
+}
+.disabled {
+  opacity: 0.50;
+  pointer-events: none
 }
 </style>
