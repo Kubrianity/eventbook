@@ -35,23 +35,30 @@ main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDelet
         textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3" required)
       div.level-item
         input.button.is-info(@click.prevent = 'handleComment' type="button" value="Submit")
-                                
+        
+loading(v-model:active = "isLoading" loader = "dots")                               
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import CommentCard from './comment-card.vue'
 import AttendeeCard from './attendee-card.vue'
+
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
   name: 'event-card',
   data() {
     return {
         comment: '',
+        isLoading: false
     }
   },
   components: {
     CommentCard,
-    AttendeeCard
+    AttendeeCard,
+    Loading
   },
   computed: {
     ...mapState(['event','user']),
@@ -96,7 +103,11 @@ export default {
       return this.isAuthenticated && !(this.event.attendees.some(user => user._id == this.user._id))
     },
     handleDelete() {
-      this.deleteEvent(this.event._id)
+      this.isLoading = true
+      setTimeout(() => {
+        this.isLoading = false
+        this.deleteEvent(this.event._id)
+      }, 1000)
     }
   },
   created() {
@@ -105,7 +116,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 main {
   margin-top: 4em;

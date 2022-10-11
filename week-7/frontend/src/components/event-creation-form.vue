@@ -15,12 +15,15 @@ div.hero.is-fullheight
           input.input.is-rounded(type = "date" :min = "minDate()" name = "date"  v-model = "date" required) 
         div.column
           button.button.is-primary.is-fullwidth(type = "submit") Submit
-   
+
+loading(v-model:active = "isLoading" loader = "dots")     
 </template>
 
 <script>
-
 import { mapState, mapActions } from 'vuex'
+
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'EventForm',
@@ -33,8 +36,12 @@ export default {
         let date = new Date();
         date.setDate(date.getDate() + 1);
         return date.toISOString().split('T')[0];
-      }
+      },
+      isLoading: false
     }
+  },
+  components: {
+    Loading
   },
   computed: {
     ...mapState(['user'])
@@ -50,7 +57,11 @@ export default {
           },
           userId: this.user._id
         }
-        this.addEvent(form)
+        this.isLoading = true
+        setTimeout(() => {
+          this.isLoading = false,
+          this.addEvent(form)
+        }, 1000)
     }
   }
 }
