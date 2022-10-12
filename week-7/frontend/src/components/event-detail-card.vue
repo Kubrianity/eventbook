@@ -11,7 +11,7 @@ main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDelet
                    
       div.card-image
         figure.image.is-4by3
-          img(src="https://images.pexels.com/photos/374710/pexels-photo-374710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Placeholder image")
+          img(:src="`https://picsum.photos/300/200?random=${event._id}`", alt="Placeholder image")
       div.card-content
         div.level.is-mobile
           div.level-left

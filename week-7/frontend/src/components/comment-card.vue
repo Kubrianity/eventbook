@@ -3,9 +3,8 @@ article.media
   div.media-content
     div.content
       p
-        strong {{ comment.author }}
-        br  
-        small {{ commentCreatedAt }} 
+        strong {{ comment.author }} 
+        small wrote on {{ commentCreatedAt }} 
         br 
         span {{ comment.comment }}
 
@@ -31,5 +30,8 @@ article {
 div.content {
   word-wrap:break-word;
   word-break: break-all;
+}
+strong {
+  margin: 0.5em;
 }
 </style>

@@ -7,7 +7,7 @@ div.column.is-two-thirds-tablet.is-half-desktop.is-one-third-widescreen
     p.subtitle {{ event.place }}
     p.subtitle {{ formatedDate }} 
     figure.image.is-4by3
-      img(src="https://images.pexels.com/photos/374710/pexels-photo-374710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+      img(:src="`https://picsum.photos/300/200?random=${event._id}`", alt="Placeholder image")
     p.subtitle(v-if = "event.attendees.length > 1") {{ event.attendees.length }} attendees
     p.subtitle(v-else) {{ event.attendees.length }} attendee  
     router-link.button.is-primary(v-bind:to = "'/' + event._id + '/detail'") Detail
