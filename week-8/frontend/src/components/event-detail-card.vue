@@ -49,12 +49,6 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'event-card',
-  data() {
-    return {
-        comment: '',
-        isLoading: false
-    }
-  },
   components: {
     CommentCard,
     AttendeeCard,
@@ -71,6 +65,10 @@ export default {
     },
     formatedDate() {
       return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+    },
+    // Display loader while the event being fetched
+    isLoading() {
+      return this.event.name ? false : true
     }
   },
   methods: {
