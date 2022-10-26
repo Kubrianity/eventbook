@@ -4,10 +4,10 @@ This project is called eventbook that you can create, update and cancel events a
 ***Front end***
 * JavaScript
 * Vue.js
-* Node.js
 * Bulma CSS
 
 ***Backend***
+* Node.js
 * Express.js
 * MongoDB
 * Mongoose
