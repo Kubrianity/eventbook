@@ -11,7 +11,7 @@ main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDelet
                    
       div.card-image
         figure.image.is-4by3
-          img(:src="`https://picsum.photos/300/200?random=${event._id}`", alt="Placeholder image")
+          img(:src="`https://picsum.photos/300/200?random=${event._id}`", alt = "Placeholder image")
       div.card-content
         div.level.is-mobile
           div.level-left
@@ -24,17 +24,17 @@ main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDelet
 
   section.column.is-three-fifths-tablet.is-one-fifth-desktop
     h4.title.is-4 Attendees
-    attendee-card(v-for = "attendee in event.attendees" :attendee="attendee")
+    attendee-card(v-for = "attendee in event.attendees" :attendee = "attendee")
 
   section.box.column.is-three-fifths-tablet.is-two-fifths-desktop
     h3.title.is-4 Comments
-    comment-card(v-for = "comment in event.comments" :comment="comment")
-    router-link.has-text-info(v-if = "!isAuthenticated" to="/login") Log in to make a comment
+    comment-card(v-for = "comment in event.comments" :comment = "comment")
+    router-link.has-text-info(v-if = "!isAuthenticated" to = "/login") Log in to make a comment
     div.field(v-else)
       p.control
-        textarea.textarea(v-model="comment" name="comment" placeholder="Add a comment..." rows="3" required)
+        textarea.textarea(v-model = "comment" name = "comment" placeholder = "Add a comment..." rows = "3" required)
       div.level-item
-        input.button.is-info(@click.prevent = 'handleComment' type="button" value="Submit")
+        input.button.is-info(@click.prevent = 'handleComment' type = "button" value = "Submit")
         
 loading(v-model:active = "isLoading" loader = "dots")                               
 </template>
@@ -49,6 +49,11 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'event-card',
+  data() {
+    return {
+      comment: ''
+    }
+  },
   components: {
     CommentCard,
     AttendeeCard,
