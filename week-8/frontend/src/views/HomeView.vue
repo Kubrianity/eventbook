@@ -3,7 +3,7 @@ main
   div.container.has-text-centered
     h1.title.is-3 EVENTS
     div.columns.is-multiline.is-centered(v-show = "events.length")
-      event-card(v-for = "event in events" :event="event")
+      event-card(v-for = "event in sortedEvents()" :event="event")
 loading(v-model:active = "isLoading" loader = "dots")  
 </template>
 
@@ -30,7 +30,10 @@ export default {
     ...mapState(['events'])
   },
   methods: {
-    ...mapActions(['fetchEvents'])
+    ...mapActions(['fetchEvents']),
+    sortedEvents() { // Sort events by deleted and active status
+      return [...this.events].sort((a, b) => Number(a.isDeleted) - Number(b.isDeleted) || Number(b.isActive) - Number(a.isActive))
+    }
   },
   created() {
     // Display loader while events being fetched
