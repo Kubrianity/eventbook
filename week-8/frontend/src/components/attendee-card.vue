@@ -37,7 +37,8 @@ export default {
             targetId: this.attendee._id,
             userId: this.user._id
         }
-        this.connect(data) 
+        this.connect(data)
+        .then(() => this.$router.push('/user/profile') )
     },
     // Check if the attendee is already in the user's contact list
     checkConnectStatus() {

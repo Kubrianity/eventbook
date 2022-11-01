@@ -46,19 +46,20 @@ export default {
   methods: {
     ...mapActions(['fetchEvent', 'updateEvent']),
     handleEventUpdate() {
-        const data = {
-            form: {
-              name: this.event.name,
-              place: this.event.place,
-              date: this.event.date
-            },
-            eventId: this.event._id
-        }
-        this.isLoading = true
-        setTimeout(() => {
-          this.isLoading = false,
-          this.updateEvent(data)
-        }, 1000)
+      this.isLoading = true
+      const data = {
+        form: {
+          name: this.event.name,
+          place: this.event.place,
+          date: this.event.date
+        },
+        eventId: this.event._id
+      }
+      this.updateEvent(data)
+      .then(() => {
+        this.isLoading = false
+        this.$router.push(`/${this.event._id}/detail`) 
+      })
     }
   },  
   created() {

@@ -51,7 +51,8 @@ export default {
   name: 'event-card',
   data() {
     return {
-      comment: ''
+      comment: '',
+      isLoading: false
     }
   },
   components: {
@@ -70,10 +71,6 @@ export default {
     },
     formatedDate() {
       return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-    },
-    // Display loader while the event being fetched
-    isLoading() {
-      return this.event.name ? false : true
     }
   },
   methods: {
@@ -84,6 +81,7 @@ export default {
         eventId: this.event._id
       }
       this.attendEvent(attendanceInfo)
+      .then(() => this.$router.push('/user/profile'))
     },
     handleComment() {
         const form = {
@@ -107,14 +105,20 @@ export default {
     },
     handleDelete() {
       this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-        this.deleteEvent(this.event._id)
-      }, 1000)
-    }
+      this.deleteEvent(this.event._id)
+        .then(() => {
+          this.isLoading = false
+          this.$router.push('/')
+        })
+      }
   },
   created() {
+    // Display loader while the event being fetched
+    this.isLoading = true
     this.fetchEvent(this.$route.params.eventId)
+    .then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>

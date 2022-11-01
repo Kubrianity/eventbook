@@ -28,41 +28,21 @@ export default createStore({
     }
   }, 
   actions: {
-    async fetchEvents({ commit }) {
-      try {
-        const result = await axios.get(`${process.env.VUE_APP_API_URL}/events/all/json`)
-        commit('SET_EVENTS', result.data)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    fetchEvents({ commit }) {
+      axios.get(`${process.env.VUE_APP_API_URL}/events/all/json`)
+      .then(result => commit('SET_EVENTS', result.data))
     },
-    async fetchEvent({ commit }, id) {
-      try {
-        const result = await axios.get(`${process.env.VUE_APP_API_URL}/events/${id}/json`)
-        commit('SET_EVENT', result.data)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    fetchEvent({ commit }, id) {
+      axios.get(`${process.env.VUE_APP_API_URL}/events/${id}/json`)
+      .then(result => commit('SET_EVENT', result.data))
     },
-    async fetchUsers({ commit }) {
-      try {
-        const result = await axios.get(`${process.env.VUE_APP_API_URL}/person/all/json`)
-        commit('SET_USERS', result.data)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    fetchUsers({ commit }) {
+      axios.get(`${process.env.VUE_APP_API_URL}/person/all/json`)
+      .then(result => commit('SET_USERS', result.data))
     },
-    async fetchUser({ commit }, id) {
-      try {
-        const result = await axios.get(`${process.env.VUE_APP_API_URL}/person/${id}/json`)
-        commit("SET_USER", result.data)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    fetchUser({ commit }, id) {
+      axios.get(`${process.env.VUE_APP_API_URL}/person/${id}/json`)
+      .then(result => commit("SET_USER", result.data))  
     },
     async register({commit}, user) {
       try {
@@ -96,79 +76,39 @@ export default createStore({
       }     
     },
     // User updates profile
-    async updateProfile(context , payload) {
-      try {
-        await axios.patch(`${process.env.VUE_APP_API_URL}/${payload.userId}`, { username : payload.username })
-        context.dispatch('fetchUser', payload.userId)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    updateProfile(context , payload) {
+      axios.patch(`${process.env.VUE_APP_API_URL}/person/${payload.userId}`, { username : payload.username })
+        .then(() => context.dispatch('fetchUser', payload.userId))
     },
     // User creates an event
-    async addEvent(context, payload) {
-      try {
-        const result = await axios.post(`${process.env.VUE_APP_API_URL}/events`, { userId: payload.userId, formInfo: payload.formDetail })
-        context.dispatch('fetchEvent', result.data._id)
-        router.push('/user/profile') 
-      }
-      catch(err) {
-        console.log(err)
-      }
+    addEvent(context, payload) {
+      axios.post(`${process.env.VUE_APP_API_URL}/events`, { userId: payload.userId, formInfo: payload.formDetail })
+        .then(result => context.dispatch('fetchEvent', result.data._id))
     },
     // User attends an event
-    async attendEvent(context , payload) {
-      try {
-        await axios.post(`${process.env.VUE_APP_API_URL}/person/register/${payload.eventId}`, { userId: payload.userId })
-        context.dispatch('fetchUser', payload.userId)
-        router.push('/user/profile')
-      }
-      catch(err) {
-        console.log(err)
-      }
+    attendEvent(context , payload) {
+      axios.post(`${process.env.VUE_APP_API_URL}/person/register/${payload.eventId}`, { userId: payload.userId })
+        .then(() => context.dispatch('fetchUser', payload.userId))
     },
     // User updates an event
-    async updateEvent(context , payload) {
-      try {
-        await axios.put(`${process.env.VUE_APP_API_URL}/events/${payload.eventId}`, payload.form)
-        context.dispatch('fetchEvent', payload.eventId)
-        router.push(`/${payload.eventId}/detail`) 
-      }
-      catch(err) {
-        console.log(err)
-      }
+    updateEvent(context , payload) {
+      axios.put(`${process.env.VUE_APP_API_URL}/events/${payload.eventId}`, payload.form)
+        .then(() => context.dispatch('fetchEvent', payload.eventId))
     },
     // User deletes an event
-    async deleteEvent(context , id) {
-      try {
-        await axios.delete(`${process.env.VUE_APP_API_URL}/events/${id}`)
-        router.push('/')
-      }
-      catch(err) {
-        console.log(err)
-      }
+    deleteEvent(context , id) {
+      axios.delete(`${process.env.VUE_APP_API_URL}/events/${id}`)
     },
     // User makes a comment 
-    async makeComment(context, payload) {
-      try {
-        await axios.post(`${process.env.VUE_APP_API_URL}/person/events/${payload.eventId}/comments`, { userId: payload.userId, comment: payload.commentDetail })
-        context.dispatch('fetchEvent', payload.eventId)
-      }
-      catch(err) {
-        console.log(err)
-      }
+    makeComment(context, payload) {
+      axios.post(`${process.env.VUE_APP_API_URL}/person/events/${payload.eventId}/comments`, { userId: payload.userId, comment: payload.commentDetail })
+        .then(() => context.dispatch('fetchEvent', payload.eventId))
     },
     // User connects with another user
-    async connect(context, payload) {
-      try {
-        await axios.post(`${process.env.VUE_APP_API_URL}/person/contacts/${payload.targetId}`, { userId: payload.userId })
-        context.dispatch('fetchUser', payload.userId)
-        router.push('/user/profile') 
-      }
-      catch(err) {
-        console.log(err)
-      }
-    }    
+    connect(context, payload) {
+      axios.post(`${process.env.VUE_APP_API_URL}/person/contacts/${payload.targetId}`, { userId: payload.userId })
+        .then(() => context.dispatch('fetchUser', payload.userId))
+      }   
   },
   modules: {
   },

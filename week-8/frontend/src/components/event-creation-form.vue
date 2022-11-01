@@ -49,19 +49,20 @@ export default {
   methods: {
     ...mapActions(['addEvent']),
     handleFormRegister() {
-        const form = {
-          formDetail: {
-            name: this.name,
-            place: this.place,
-            date: this.date
-          },
-          userId: this.user._id
-        }
-        this.isLoading = true
-        setTimeout(() => {
-          this.isLoading = false,
-          this.addEvent(form)
-        }, 1000)
+      this.isLoading = true
+      const form = {
+        formDetail: {
+          name: this.name,
+          place: this.place,
+          date: this.date
+        },
+        userId: this.user._id
+      }
+      this.addEvent(form)
+      .then(() => {
+        this.isLoading = false
+        this.$router.push('/user/profile')
+      })
     }
   }
 }

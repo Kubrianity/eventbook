@@ -17,22 +17,28 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'HomeView',
+  data() {
+    return {
+      isLoading: false
+    }
+  },
   components: {
     EventCard,
     Loading
   },
   computed: {
-    ...mapState(['events']),
-    // Display loader while events being fetched
-    isLoading() {
-      return this.events.length ? false : true
-    }
+    ...mapState(['events'])
   },
   methods: {
     ...mapActions(['fetchEvents'])
   },
   created() {
+    // Display loader while events being fetched
+    this.isLoading = true
     this.fetchEvents()
+    .then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
