@@ -1,5 +1,5 @@
 <template lang = 'pug'>
-main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
+main.columns.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
   section.column.is-three-fifths-tablet.is-two-fifths-desktop
     div.card
       div.header
@@ -126,6 +126,7 @@ export default {
 <style scoped>
 main {
   margin-top: 4em;
+  text-align: center;
 }
 p, h {
   margin: 0.5em;
@@ -139,5 +140,10 @@ section {
 .disabled {
   opacity: 0.50;
   pointer-events: none
+}
+@media only screen and (min-width: 769px) {
+  main {
+    margin-left: 15%;
+  }
 }
 </style>
