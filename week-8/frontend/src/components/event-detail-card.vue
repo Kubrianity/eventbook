@@ -1,12 +1,12 @@
 <template lang = 'pug'>
-main.columns.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
+main.columns.is-multiline(:class = "{ disabled: !isActive() || isDeleted() }")
   section.column.is-three-fifths-tablet.is-two-fifths-desktop
     div.card
       div.header
         div.media
           div.media-content
             p.title.is-4 {{ event.name }}  
-            p.subtitle.is-4 {{ formatedDate }}
+            p.subtitle.is-4 {{ formatedDate() }}
             p.subtitle.is-4 {{ event.place }}
                    
       div.card-image
@@ -17,10 +17,10 @@ main.columns.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
           div.level-left
             div.level-item.has-text-centered
         div.content
-          button.button.is-primary(v-if = "checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
+          button.button.is-primary(v-if = "checkAttendStatus() && isActive() && !isDeleted()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
           router-link.has-text-info(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
-          button.button.is-warning(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
-          router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
+          button.button.is-warning(v-if = "checkDeleteUpdateStatus() && isActive() && !isDeleted()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
+          router-link.button.is-primary(v-if = "checkDeleteUpdateStatus() && isActive() && !isDeleted()" v-bind:to = "'/' + event._id + '/edit'") Update
 
   section.column.is-three-fifths-tablet.is-one-fifth-desktop
     h4.title.is-4 Attendees
@@ -62,16 +62,7 @@ export default {
   },
   computed: {
     ...mapState(['event','user']),
-    ...mapGetters(['isAuthenticated']),
-    isActive() {
-      return this.event.isActive
-    },
-    isDeleted() {
-      return this.event.isDeleted
-    },
-    formatedDate() {
-      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-    }
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['fetchEvent','attendEvent', 'makeComment', 'deleteEvent']),
@@ -110,7 +101,16 @@ export default {
           this.isLoading = false
           this.$router.push('/')
         })
-      }
+      },
+    isActive() {
+      return this.event.isActive 
+    },
+    isDeleted() {
+      return this.event.isDeleted
+    },
+    formatedDate() {
+      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
+    }
   },
   created() {
     // Display loader while the event being fetched

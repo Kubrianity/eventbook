@@ -43,6 +43,5 @@ export default {
 }
 .disabled {
   opacity: 0.50;
-  pointer-events: none
 }
 </style>
