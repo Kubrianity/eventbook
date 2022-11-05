@@ -61,7 +61,6 @@ export default {
       this.addEvent(form)
       .then(() => {
         this.isLoading = false
-        this.$router.push('/user/profile')
       })
     }
   }

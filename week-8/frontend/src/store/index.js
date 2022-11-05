@@ -83,7 +83,10 @@ export default createStore({
     // User creates an event
     addEvent(context, payload) {
       axios.post(`${process.env.VUE_APP_API_URL}/events`, { userId: payload.userId, formInfo: payload.formDetail })
-        .then(result => context.dispatch('fetchEvent', result.data._id))
+        .then(result => {
+          context.dispatch('fetchEvent', result.data._id)
+          router.push('/user/profile')
+        })
     },
     // User attends an event
     attendEvent(context , payload) {
