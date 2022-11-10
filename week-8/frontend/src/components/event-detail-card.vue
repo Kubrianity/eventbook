@@ -46,6 +46,7 @@ import AttendeeCard from './attendee-card.vue'
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Swal from 'sweetalert2'
 
 export default {
   name: 'event-card',
@@ -95,13 +96,28 @@ export default {
       return this.isAuthenticated && !(this.event.attendees.some(user => user._id == this.user._id))
     },
     handleDelete() {
-      this.isLoading = true
-      this.deleteEvent(this.event._id)
-        .then(() => {
-          this.isLoading = false
-          this.$router.push('/')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteEvent(this.event._id)
+          .then(() => {
+            Swal.fire(
+            'Deleted!',
+            'Your event has been cancelled.',
+            'success'
+            )
+            this.$router.push('/')
+          })
+        }
         })
-      },
+    },
     isActive() {
       return this.event.isActive 
     },
