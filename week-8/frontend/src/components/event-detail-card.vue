@@ -1,12 +1,12 @@
 <template lang = 'pug'>
-main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDeleted }")
+main.columns.is-multiline(:class = "{ disabled: !isActive() || isDeleted() }")
   section.column.is-three-fifths-tablet.is-two-fifths-desktop
     div.card
       div.header
         div.media
           div.media-content
             p.title.is-4 {{ event.name }}  
-            p.subtitle.is-4 {{ formatedDate }}
+            p.subtitle.is-4 {{ formatedDate() }}
             p.subtitle.is-4 {{ event.place }}
                    
       div.card-image
@@ -17,10 +17,10 @@ main.columns.is-centered.is-multiline(:class = "{ disabled: !isActive || isDelet
           div.level-left
             div.level-item.has-text-centered
         div.content
-          button.button.is-primary(v-if = "checkAttendStatus()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
+          button.button.is-primary(v-if = "checkAttendStatus() && isActive() && !isDeleted()" @click.prevent = 'handleAttend' type = "button" value = "Attend") Attend
           router-link.has-text-info(v-else-if = "!isAuthenticated" to="/login") Log in to attend this event
-          button.button.is-warning(v-if = "checkDeleteUpdateStatus()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
-          router-link.button.is-primary(v-if = "checkDeleteUpdateStatus()" v-bind:to = "'/' + event._id + '/edit'") Update
+          button.button.is-warning(v-if = "checkDeleteUpdateStatus() && isActive() && !isDeleted()" @click.prevent = 'handleDelete' type = "button" value = "Delete") Delete
+          router-link.button.is-primary(v-if = "checkDeleteUpdateStatus() && isActive() && !isDeleted()" v-bind:to = "'/' + event._id + '/edit'") Update
 
   section.column.is-three-fifths-tablet.is-one-fifth-desktop
     h4.title.is-4 Attendees
@@ -46,12 +46,14 @@ import AttendeeCard from './attendee-card.vue'
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Swal from 'sweetalert2'
 
 export default {
   name: 'event-card',
   data() {
     return {
-      comment: ''
+      comment: '',
+      isLoading: false
     }
   },
   components: {
@@ -61,20 +63,7 @@ export default {
   },
   computed: {
     ...mapState(['event','user']),
-    ...mapGetters(['isAuthenticated']),
-    isActive() {
-      return this.event.isActive
-    },
-    isDeleted() {
-      return this.event.isDeleted
-    },
-    formatedDate() {
-      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
-    },
-    // Display loader while the event being fetched
-    isLoading() {
-      return this.event.name ? false : true
-    }
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['fetchEvent','attendEvent', 'makeComment', 'deleteEvent']),
@@ -84,6 +73,7 @@ export default {
         eventId: this.event._id
       }
       this.attendEvent(attendanceInfo)
+      .then(() => this.$router.push('/user/profile'))
     },
     handleComment() {
         const form = {
@@ -106,15 +96,45 @@ export default {
       return this.isAuthenticated && !(this.event.attendees.some(user => user._id == this.user._id))
     },
     handleDelete() {
-      this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-        this.deleteEvent(this.event._id)
-      }, 1000)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteEvent(this.event._id)
+          .then(() => {
+            Swal.fire(
+            'Deleted!',
+            'Your event has been cancelled.',
+            'success'
+            )
+            this.$router.push('/')
+          })
+        }
+        })
+    },
+    isActive() {
+      return this.event.isActive 
+    },
+    isDeleted() {
+      return this.event.isDeleted
+    },
+    formatedDate() {
+      return new Date(this.event.date).toLocaleString('default', { year: 'numeric', month: 'long', day: 'numeric' })
     }
   },
   created() {
+    // Display loader while the event being fetched
+    this.isLoading = true
     this.fetchEvent(this.$route.params.eventId)
+    .then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
@@ -122,6 +142,7 @@ export default {
 <style scoped>
 main {
   margin-top: 4em;
+  text-align: center;
 }
 p, h {
   margin: 0.5em;
@@ -135,5 +156,10 @@ section {
 .disabled {
   opacity: 0.50;
   pointer-events: none
+}
+@media only screen and (min-width: 769px) {
+  main {
+    margin-left: 15%;
+  }
 }
 </style>

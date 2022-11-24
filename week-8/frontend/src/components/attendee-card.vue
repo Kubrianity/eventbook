@@ -5,10 +5,10 @@ article.media
       p
         strong(v-if = "user._id == attendee._id") You
         strong(v-else) {{ attendee.username }}
+        button.button.is-primary.is-small(v-show = "checkConnectStatus()" @click.prevent = "handleConnect") Connect
         br
         small member since {{ attendeeCreatedAt }}
         br
-        button.button.is-primary(v-show = "checkConnectStatus()" @click.prevent = "handleConnect") Connect
         router-link.has-text-info(v-show = "!(user._id)" to = "/login") Log in to connect
 
 </template>
@@ -37,7 +37,8 @@ export default {
             targetId: this.attendee._id,
             userId: this.user._id
         }
-        this.connect(data) 
+        this.connect(data)
+        .then(() => this.$router.push('/user/profile') )
     },
     // Check if the attendee is already in the user's contact list
     checkConnectStatus() {
@@ -50,16 +51,8 @@ export default {
 </script>
 
 <style scoped>
-article {
-  margin: 0.75em;
-}
-div.content {
-  word-wrap:break-word;
-  word-break: break-all;
-}
 button {
   border-radius: 8px;
-  margin: 0.25em;
-  padding:0.30em;
+  margin-left: 0.50em;
 }
 </style>

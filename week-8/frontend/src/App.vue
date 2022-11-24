@@ -48,11 +48,11 @@ export default {
     ...mapActions(['logOut']),
     handleLogOut() {
       this.isLoading = true
-      setTimeout(() => {
+      this.$router.push('/')
+      this.logOut()
+      .then(() => {
         this.isLoading = false
-        this.$router.push('/')
-        this.logOut()
-      }, 1000)
+      })
     }
   },
   mounted() {

@@ -3,7 +3,7 @@ main
   div.container.has-text-centered
     h1.title.is-3 EVENTS
     div.columns.is-multiline.is-centered(v-show = "events.length")
-      event-card(v-for = "event in events" :event="event")
+      event-card(v-for = "event in sortedEvents()" :event="event")
 loading(v-model:active = "isLoading" loader = "dots")  
 </template>
 
@@ -17,22 +17,31 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'HomeView',
+  data() {
+    return {
+      isLoading: false
+    }
+  },
   components: {
     EventCard,
     Loading
   },
   computed: {
-    ...mapState(['events']),
-    // Display loader while events being fetched
-    isLoading() {
-      return this.events.length ? false : true
-    }
+    ...mapState(['events'])
   },
   methods: {
-    ...mapActions(['fetchEvents'])
+    ...mapActions(['fetchEvents']),
+    sortedEvents() { // Sort events by deleted and active status
+      return [...this.events].sort((a, b) => Number(a.isDeleted) - Number(b.isDeleted) || Number(b.isActive) - Number(a.isActive))
+    }
   },
   created() {
+    // Display loader while events being fetched
+    this.isLoading = true
     this.fetchEvents()
+    .then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
