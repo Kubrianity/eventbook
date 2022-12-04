@@ -2,8 +2,11 @@
 main
   div.container.has-text-centered
     h1.title.is-3 EVENTS
-    div.columns.is-multiline.is-centered(v-show = "events.length")
+    div.columns.is-multiline.is-centered(v-if = "events.length")
       event-card(v-for = "event in sortedEvents()" :event="event")
+    div(v-else)  
+      h1.title.is-4 You don't have any events yet
+      router-link.has-text-info(to = "/register") Sign up to create one!  
 loading(v-model:active = "isLoading" loader = "dots")  
 </template>
 
