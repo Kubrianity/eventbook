@@ -4,7 +4,6 @@ services:
     build: backend
     environment:
       MONGODB_CONNECTION_STRING: "mongodb://mongodb/eventbook"
-      SESSION_KEY: "YOURSESSIONKEY"
       PORT: "3000"
     ports:
       - 3000:3000
