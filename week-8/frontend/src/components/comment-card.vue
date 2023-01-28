@@ -6,7 +6,7 @@ article.media
         strong {{ comment.author }} 
         small wrote on {{ commentCreatedAt }} 
         br 
-        span {{ comment.body }}
+        span {{ comment.comment }}
 
 </template>
 

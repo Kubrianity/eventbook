@@ -78,7 +78,7 @@ export default {
     handleComment() {
         const form = {
           commentDetail: {
-            body: this.comment,
+            comment: this.comment,
 
           },
           eventId: this.event._id,
