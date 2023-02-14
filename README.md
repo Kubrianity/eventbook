@@ -21,7 +21,7 @@ This project is called eventbook that you can create, update and cancel events a
 * Heroku
 * Docker
 
-**Here is the link for this project** : https://eventbook-frontend.herokuapp.com
+
 
 ## Installation & Setup
 In order to run this application locally, node.js, npm and mongodb should be installed on your computer and **mongodb should be running**
