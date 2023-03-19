@@ -6,14 +6,14 @@ main
       event-card(v-for = "event in sortedEvents()" :event="event")
     div(v-else)  
       h1.title.is-4 You don't have any events yet
-      router-link.has-text-info(to = "/register") Sign up to create one!  
+      router-link.has-text-info(to = "/register" v-show = "!isAuthenticated") Sign up to create one!  
 loading(v-model:active = "isLoading" loader = "dots")  
 </template>
 
 <script>
 // @ is an alias to /src
 import EventCard from '@/components/event-card.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -30,7 +30,8 @@ export default {
     Loading
   },
   computed: {
-    ...mapState(['events'])
+    ...mapState(['events']),
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     ...mapActions(['fetchEvents']),
