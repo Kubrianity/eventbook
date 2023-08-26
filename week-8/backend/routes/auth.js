@@ -20,7 +20,10 @@ router.post('/register', (req, res, next) => {
           return
         }
         PersonService.add(account)
-        res.send(account)
+        req.login(user, function(err) {
+          if(err) return next(err)
+          res.send(req.user)
+        });
     })
 })
 
