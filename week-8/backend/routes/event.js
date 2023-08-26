@@ -27,20 +27,20 @@ router.get('/:id/json', async (req, res) => {
   res.send(event)
 })
 
-router.post('/', async (req, res) => {
-  const person = await PersonService.find(req.body.userId)
+router.post('/', isLoggedIn, async (req, res) => {
+  const person = await PersonService.find(req.user._id)
   const event = await EventService.add(req.body.formInfo)
   await PersonService.create(person, event)
   res.send(event)
 })
 
-router.put('/:id', async (req,res) => {
+router.put('/:id', isLoggedIn, async (req,res) => {
   const {id} = req.params
   await EventService.update(id, req.body)
   res.send('Updated')
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isLoggedIn, async (req, res) => {
   await EventService.delete(req.params.id)
   res.send('Deleted!')
 })

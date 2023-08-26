@@ -30,7 +30,7 @@ router.get('/:id/json', async (req, res) => {
 })
 
 // Updates person model
-router.patch('/:id', async (req,res) => {
+router.patch('/:id', isLoggedIn, async (req,res) => {
   const {id} = req.params
   await PersonService.update(id, req.body)
   res.send('Updated')
@@ -42,24 +42,24 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
 })
 
 // Register for an event
-router.post('/register/:eventId', async (req, res) => {
-  const person = await PersonService.find(req.body.userId)
+router.post('/register/:eventId', isLoggedIn, async (req, res) => {
+  const person = await PersonService.find(req.user._id)
   const event = await EventService.find(req.params.eventId)
   await PersonService.register(person, event)
   res.send(person)
 })
 
 // Add a new contact
-router.post('/contacts/:targetId', async (req, res) => {
-  const person = await PersonService.find(req.body.userId)
+router.post('/contacts/:targetId', isLoggedIn, async (req, res) => {
+  const person = await PersonService.find(req.user._id)
   const personToConnect = await PersonService.find(req.params.targetId)
   await PersonService.connect(person, personToConnect)
   res.send('connected!')
 })
 
 // Make a comment for an event
-router.post('/events/:eventId/comments', async (req, res) => {
-  const person = await PersonService.find(req.body.userId)
+router.post('/events/:eventId/comments', isLoggedIn, async (req, res) => {
+  const person = await PersonService.find(req.user._id)
   const event = await EventService.find(req.params.eventId)
   const comment = await CommentService.add(req.body.comment)
   await PersonService.makeComment(person, comment, event)
