@@ -8,7 +8,7 @@
     "test": "ava --verbose --watch",
     "test-coverage": "nyc ava --verbose"
   },
-  "author": "Kubra Ozeren <kubraaozerenn@gmai.com>",
+  "author": "Kubra Ozeren <kubraaozerenn@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.0",
