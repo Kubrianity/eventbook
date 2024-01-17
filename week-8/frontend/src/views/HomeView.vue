@@ -3,7 +3,7 @@ main
   div.container.has-text-centered
     h1.title.is-3 EVENTS
     div.columns.is-multiline.is-centered(v-if = "events.length")
-      event-card(v-for = "event in sortedEvents()" :event="event")
+      event-card(v-for = "event in sortedEvents" :event="event")
     div(v-else)  
       h1.title.is-4 You don't have any events yet
       router-link.has-text-info(to = "/register" v-show = "!isAuthenticated") Sign up to create one!  
@@ -31,13 +31,13 @@ export default {
   },
   computed: {
     ...mapState(['events']),
-    ...mapGetters(['isAuthenticated'])
-  },
-  methods: {
-    ...mapActions(['fetchEvents']),
+    ...mapGetters(['isAuthenticated']),
     sortedEvents() { // Sort events by deleted and active status
       return [...this.events].sort((a, b) => Number(a.isDeleted) - Number(b.isDeleted) || Number(b.isActive) - Number(a.isActive))
     }
+  },
+  methods: {
+    ...mapActions(['fetchEvents'])
   },
   created() {
     // Display loader while events being fetched
